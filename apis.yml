@@ -1,0 +1,54 @@
+name: ChatGPT API
+description: OpenAI's ChatGPT API for conversational AI and language model interactions
+image: https://openai.com/content/images/2023/05/openai-avatar.png
+url: https://platform.openai.com/docs/api-reference
+created: '2024'
+modified: '2024'
+specificationVersion: '0.18'
+apis:
+- name: ChatGPT API
+  description: API for accessing OpenAI's ChatGPT language models for chat completions and conversations
+  image: https://openai.com/content/images/2023/05/openai-avatar.png
+  humanURL: https://platform.openai.com/docs/guides/chat
+  baseURL: https://api.openai.com/v1
+  tags:
+  - artificial intelligence
+  - chatbot
+  - natural language processing
+  - machine learning
+  - conversational ai
+  properties:
+  - type: Documentation
+    url: https://platform.openai.com/docs/api-reference/chat
+  - type: OpenAPI
+    url: https://github.com/openai/openai-openapi/blob/master/openapi.yaml
+  - type: Authentication
+    url: https://platform.openai.com/docs/api-reference/authentication
+  - type: Pricing
+    url: https://openai.com/pricing
+  - type: Rate Limits
+    url: https://platform.openai.com/docs/guides/rate-limits
+  - type: Terms of Service
+    url: https://openai.com/terms
+  - type: Privacy Policy
+    url: https://openai.com/privacy
+  - type: Status
+    url: https://status.openai.com
+  - type: Support
+    url: https://help.openai.com
+  - type: GitHub
+    url: https://github.com/openai
+  contact:
+  - type: Support
+    url: https://help.openai.com
+maintainers:
+- name: OpenAI
+  email: support@openai.com
+  url: https://openai.com
+tags:
+- ai
+- chatgpt
+- gpt-4
+- gpt-3.5
+- language model
+- openai
