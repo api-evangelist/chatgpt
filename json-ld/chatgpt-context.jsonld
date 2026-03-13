@@ -1,0 +1,241 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "openai": "https://platform.openai.com/docs/api-reference/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "ChatCompletion": {
+      "@id": "openai:ChatCompletion",
+      "@context": {
+        "id": "@id",
+        "object": "openai:objectType",
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:integer"
+        },
+        "model": "openai:model",
+        "choices": {
+          "@id": "openai:choices",
+          "@container": "@list"
+        },
+        "usage": "openai:usage",
+        "system_fingerprint": "openai:systemFingerprint",
+        "service_tier": "openai:serviceTier"
+      }
+    },
+
+    "Response": {
+      "@id": "openai:Response",
+      "@context": {
+        "id": "@id",
+        "object": "openai:objectType",
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:integer"
+        },
+        "model": "openai:model",
+        "status": "openai:status",
+        "output": {
+          "@id": "openai:output",
+          "@container": "@list"
+        },
+        "usage": "openai:usage",
+        "instructions": "openai:instructions",
+        "metadata": "openai:metadata",
+        "temperature": "openai:temperature",
+        "top_p": "openai:topP",
+        "max_output_tokens": "openai:maxOutputTokens",
+        "previous_response_id": "openai:previousResponseId",
+        "reasoning": "openai:reasoning",
+        "tools": {
+          "@id": "openai:tools",
+          "@container": "@set"
+        },
+        "truncation": "openai:truncation",
+        "user": "openai:endUser",
+        "service_tier": "openai:serviceTier"
+      }
+    },
+
+    "Choice": {
+      "@id": "openai:Choice",
+      "@context": {
+        "index": "openai:index",
+        "message": "openai:message",
+        "finish_reason": "openai:finishReason",
+        "logprobs": "openai:logprobs"
+      }
+    },
+
+    "Message": {
+      "@id": "openai:Message",
+      "@context": {
+        "role": "openai:role",
+        "content": "openai:content",
+        "name": "schema:name",
+        "tool_calls": {
+          "@id": "openai:toolCalls",
+          "@container": "@list"
+        },
+        "tool_call_id": "openai:toolCallId",
+        "refusal": "openai:refusal"
+      }
+    },
+
+    "OutputItem": {
+      "@id": "openai:OutputItem",
+      "@context": {
+        "id": "@id",
+        "type": "openai:outputItemType",
+        "role": "openai:role",
+        "status": "openai:status",
+        "content": {
+          "@id": "openai:content",
+          "@container": "@list"
+        },
+        "name": "schema:name",
+        "call_id": "openai:callId",
+        "arguments": "openai:arguments",
+        "summary": {
+          "@id": "openai:summary",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "OutputContentPart": {
+      "@id": "openai:OutputContentPart",
+      "@context": {
+        "type": "openai:contentPartType",
+        "text": "openai:text",
+        "refusal": "openai:refusal",
+        "annotations": {
+          "@id": "openai:annotations",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "ContentPart": {
+      "@id": "openai:ContentPart",
+      "@context": {
+        "type": "openai:contentPartType",
+        "text": "openai:text",
+        "image_url": "openai:imageUrl",
+        "input_audio": "openai:inputAudio"
+      }
+    },
+
+    "ToolCall": {
+      "@id": "openai:ToolCall",
+      "@context": {
+        "id": "@id",
+        "type": "openai:toolCallType",
+        "function": "openai:function"
+      }
+    },
+
+    "FunctionCall": {
+      "@id": "openai:FunctionCall",
+      "@context": {
+        "name": "schema:name",
+        "arguments": "openai:arguments"
+      }
+    },
+
+    "FunctionDefinition": {
+      "@id": "openai:FunctionDefinition",
+      "@context": {
+        "name": "schema:name",
+        "description": "dcterms:description",
+        "parameters": "openai:parameters",
+        "strict": "openai:strict"
+      }
+    },
+
+    "Tool": {
+      "@id": "openai:Tool",
+      "@context": {
+        "type": "openai:toolType",
+        "name": "schema:name",
+        "description": "dcterms:description",
+        "parameters": "openai:parameters",
+        "strict": "openai:strict",
+        "vector_store_ids": {
+          "@id": "openai:vectorStoreIds",
+          "@container": "@set"
+        },
+        "max_num_results": "openai:maxNumResults",
+        "server_label": "openai:serverLabel",
+        "server_url": {
+          "@id": "openai:serverUrl",
+          "@type": "@id"
+        },
+        "allowed_tools": {
+          "@id": "openai:allowedTools",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Annotation": {
+      "@id": "openai:Annotation",
+      "@context": {
+        "type": "openai:annotationType",
+        "start_index": "openai:startIndex",
+        "end_index": "openai:endIndex",
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "title": "schema:name",
+        "file_id": "openai:fileId",
+        "quote": "openai:quote"
+      }
+    },
+
+    "Usage": {
+      "@id": "openai:Usage",
+      "@context": {
+        "prompt_tokens": "openai:promptTokens",
+        "completion_tokens": "openai:completionTokens",
+        "total_tokens": "openai:totalTokens",
+        "input_tokens": "openai:inputTokens",
+        "output_tokens": "openai:outputTokens",
+        "completion_tokens_details": "openai:completionTokensDetails",
+        "prompt_tokens_details": "openai:promptTokensDetails",
+        "input_tokens_details": "openai:inputTokensDetails",
+        "output_tokens_details": "openai:outputTokensDetails"
+      }
+    },
+
+    "ReasoningConfig": {
+      "@id": "openai:ReasoningConfig",
+      "@context": {
+        "effort": "openai:effort",
+        "summary": "openai:reasoningSummary"
+      }
+    },
+
+    "ResponseFormat": {
+      "@id": "openai:ResponseFormat",
+      "@context": {
+        "type": "openai:formatType",
+        "json_schema": "openai:jsonSchema"
+      }
+    },
+
+    "ImageUrl": {
+      "@id": "openai:ImageUrl",
+      "@context": {
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "detail": "openai:detail"
+      }
+    }
+  }
+}
