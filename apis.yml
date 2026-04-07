@@ -15,11 +15,11 @@ apis:
     humanURL: https://platform.openai.com/docs/guides/chat
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - chatbot
-      - natural language processing
-      - machine learning
-      - conversational ai
+      - Artificial Intelligence
+      - Chatbot
+      - Conversational Ai
+      - Machine Learning
+      - Natural Language Processing
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/chat
@@ -75,18 +75,16 @@ apis:
       - type: Support
         url: https://help.openai.com
   - name: OpenAI Responses API
-    description: The Responses API is OpenAI's recommended API primitive for new
-      projects, an evolution of Chat Completions with built-in tools like web 
-      search, file search, code interpreter, and support for agentic workflows.
+    description: The Responses API is OpenAI's recommended API primitive for new projects, an evolution of Chat Completions with built-in tools like web search, file search, code interpreter, and support for agentic workflows.
     image: https://openai.com/content/images/2023/05/openai-avatar.png
     humanURL: https://platform.openai.com/docs/api-reference/responses
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - responses
-      - agents
-      - tools
-      - conversational ai
+      - Agents
+      - Artificial Intelligence
+      - Conversational Ai
+      - Responses
+      - Tools
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/responses
@@ -102,17 +100,15 @@ apis:
       - type: Support
         url: https://help.openai.com
   - name: OpenAI Embeddings API
-    description: API for generating embedding vectors from input text using 
-      models like text-embedding-3-small and text-embedding-3-large, useful for 
-      search, clustering, and recommendations.
+    description: API for generating embedding vectors from input text using models like text-embedding-3-small and text-embedding-3-large, useful for search, clustering, and recommendations.
     image: https://openai.com/content/images/2023/05/openai-avatar.png
     humanURL: https://platform.openai.com/docs/api-reference/embeddings
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - embeddings
-      - search
-      - machine learning
+      - Artificial Intelligence
+      - Embeddings
+      - Machine Learning
+      - Search
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/embeddings
@@ -122,17 +118,15 @@ apis:
       - type: Support
         url: https://help.openai.com
   - name: OpenAI Images API
-    description: API for generating and editing images from text prompts using 
-      DALL-E and GPT Image models, supporting image generations, edits, and 
-      variations.
+    description: API for generating and editing images from text prompts using DALL-E and GPT Image models, supporting image generations, edits, and variations.
     image: https://openai.com/content/images/2023/05/openai-avatar.png
     humanURL: https://platform.openai.com/docs/api-reference/images
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - image generation
-      - dall-e
-      - creative ai
+      - Artificial Intelligence
+      - Creative Ai
+      - Dall-E
+      - Image Generation
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/images
@@ -142,18 +136,16 @@ apis:
       - type: Support
         url: https://help.openai.com
   - name: OpenAI Audio API
-    description: API for audio capabilities including text-to-speech generation,
-      speech transcription, and translation using Whisper and other audio 
-      models.
+    description: API for audio capabilities including text-to-speech generation, speech transcription, and translation using Whisper and other audio models.
     image: https://openai.com/content/images/2023/05/openai-avatar.png
     humanURL: https://platform.openai.com/docs/api-reference/audio
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - audio
-      - speech
-      - transcription
-      - text-to-speech
+      - Artificial Intelligence
+      - Audio
+      - Speech
+      - Text-To-Speech
+      - Transcription
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/audio
@@ -163,16 +155,15 @@ apis:
       - type: Support
         url: https://help.openai.com
   - name: OpenAI Moderations API
-    description: API for classifying text and images to detect potentially 
-      harmful content across categories like hate, violence, and self-harm.
+    description: API for classifying text and images to detect potentially harmful content across categories like hate, violence, and self-harm.
     image: https://openai.com/content/images/2023/05/openai-avatar.png
     humanURL: https://platform.openai.com/docs/api-reference/moderations
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - moderation
-      - content safety
-      - trust and safety
+      - Artificial Intelligence
+      - Content Safety
+      - Moderation
+      - Trust and Safety
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/moderations
@@ -182,17 +173,15 @@ apis:
       - type: Support
         url: https://help.openai.com
   - name: OpenAI Fine-Tuning API
-    description: API for creating and managing fine-tuning jobs to customize 
-      OpenAI models on your own training data, supporting supervised fine-tuning
-      and direct preference optimization.
+    description: API for creating and managing fine-tuning jobs to customize OpenAI models on your own training data, supporting supervised fine-tuning and direct preference optimization.
     image: https://openai.com/content/images/2023/05/openai-avatar.png
     humanURL: https://platform.openai.com/docs/api-reference/fine-tuning
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - fine-tuning
-      - model customization
-      - machine learning
+      - Artificial Intelligence
+      - Fine-Tuning
+      - Machine Learning
+      - Model Customization
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/fine-tuning
@@ -202,16 +191,15 @@ apis:
       - type: Support
         url: https://help.openai.com
   - name: OpenAI Files API
-    description: API for uploading and managing files used across OpenAI 
-      features including fine-tuning, assistants, batch processing, and vision.
+    description: API for uploading and managing files used across OpenAI features including fine-tuning, assistants, batch processing, and vision.
     image: https://openai.com/content/images/2023/05/openai-avatar.png
     humanURL: https://platform.openai.com/docs/api-reference/files
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - files
-      - uploads
-      - storage
+      - Artificial Intelligence
+      - Files
+      - Storage
+      - Uploads
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/files
@@ -221,17 +209,15 @@ apis:
       - type: Support
         url: https://help.openai.com
   - name: OpenAI Batch API
-    description: API for sending asynchronous groups of requests at lower cost 
-      with a separate pool of significantly higher rate limits, supporting chat 
-      completions, embeddings, and completions endpoints.
+    description: API for sending asynchronous groups of requests at lower cost with a separate pool of significantly higher rate limits, supporting chat completions, embeddings, and completions endpoints.
     image: https://openai.com/content/images/2023/05/openai-avatar.png
     humanURL: https://platform.openai.com/docs/api-reference/batch
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - batch processing
-      - asynchronous
-      - cost optimization
+      - Artificial Intelligence
+      - Asynchronous
+      - Batch Processing
+      - Cost Optimization
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/batch
@@ -241,17 +227,15 @@ apis:
       - type: Support
         url: https://help.openai.com
   - name: OpenAI Uploads API
-    description: API for uploading large files in multiple parts, supporting 
-      files up to 8 GB for use with fine-tuning, assistants, and batch 
-      processing.
+    description: API for uploading large files in multiple parts, supporting files up to 8 GB for use with fine-tuning, assistants, and batch processing.
     image: https://openai.com/content/images/2023/05/openai-avatar.png
     humanURL: https://platform.openai.com/docs/api-reference/uploads
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - uploads
-      - files
-      - large files
+      - Artificial Intelligence
+      - Files
+      - Large Files
+      - Uploads
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/uploads
@@ -261,17 +245,15 @@ apis:
       - type: Support
         url: https://help.openai.com
   - name: OpenAI Vector Stores API
-    description: API for creating and managing vector stores used by the file 
-      search tool, supporting collections of processed files for 
-      retrieval-augmented generation.
+    description: API for creating and managing vector stores used by the file search tool, supporting collections of processed files for retrieval-augmented generation.
     image: https://openai.com/content/images/2023/05/openai-avatar.png
     humanURL: https://platform.openai.com/docs/api-reference/vector-stores
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - vector stores
-      - file search
-      - retrieval
+      - Artificial Intelligence
+      - File Search
+      - Retrieval
+      - Vector Stores
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/vector-stores
@@ -281,18 +263,16 @@ apis:
       - type: Support
         url: https://help.openai.com
   - name: OpenAI Realtime API
-    description: API for real-time multimodal communication with models over 
-      WebRTC, WebSocket, and SIP, supporting speech-to-speech, text, image, and 
-      audio inputs and outputs with ultra-low latency.
+    description: API for real-time multimodal communication with models over WebRTC, WebSocket, and SIP, supporting speech-to-speech, text, image, and audio inputs and outputs with ultra-low latency.
     image: https://openai.com/content/images/2023/05/openai-avatar.png
     humanURL: https://platform.openai.com/docs/api-reference/realtime
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - realtime
-      - websocket
-      - speech
-      - audio
+      - Artificial Intelligence
+      - Audio
+      - Realtime
+      - Speech
+      - Websocket
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/realtime
@@ -302,15 +282,13 @@ apis:
       - type: Support
         url: https://help.openai.com
   - name: OpenAI Models API
-    description: API for listing and retrieving information about available 
-      OpenAI models, including details on permissions and capabilities.
+    description: API for listing and retrieving information about available OpenAI models, including details on permissions and capabilities.
     image: https://openai.com/content/images/2023/05/openai-avatar.png
     humanURL: https://platform.openai.com/docs/api-reference/models
     baseURL: https://api.openai.com/v1
     tags:
-      - artificial intelligence
-      - models
-      - api
+      - Artificial Intelligence
+      - Models
     properties:
       - type: Documentation
         url: https://platform.openai.com/docs/api-reference/models
@@ -374,14 +352,14 @@ common:
   - type: Login
     url: https://platform.openai.com/login
 tags:
-  - ai
-  - chatgpt
-  - gpt-4
-  - gpt-3.5
-  - gpt-5
-  - language model
-  - openai
-  - embeddings
-  - fine-tuning
-  - realtime
-  - agents
+  - Agents
+  - Ai
+  - Chatgpt
+  - Embeddings
+  - Fine-Tuning
+  - Gpt-3.5
+  - Gpt-4
+  - Gpt-5
+  - Language Model
+  - Openai
+  - Realtime
