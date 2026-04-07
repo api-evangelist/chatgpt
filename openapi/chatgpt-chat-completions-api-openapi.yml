@@ -30,7 +30,7 @@ tags:
 paths:
   /chat/completions:
     post:
-      summary: Create Chat Completion
+      summary: ChatGPT Create Chat Completion
       description: |
         Creates a model response for the given chat conversation. This endpoint
         accepts a series of messages as input and returns a model-generated
@@ -195,7 +195,7 @@ components:
             minimum: -100
             maximum: 100
           nullable: true
-          default: null
+          default:
         logprobs:
           type: boolean
           description: |
@@ -257,7 +257,7 @@ components:
                 type: string
               minItems: 1
               maxItems: 4
-          default: null
+          default:
         stream:
           type: boolean
           description: |

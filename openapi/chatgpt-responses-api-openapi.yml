@@ -31,7 +31,7 @@ tags:
 paths:
   /responses:
     post:
-      summary: Create Response
+      summary: ChatGPT Create Response
       description: |
         Creates a model response. Provide text or image inputs to generate
         text or JSON outputs. The Responses API supports built-in tools for
@@ -149,7 +149,7 @@ paths:
 
   /responses/{response_id}:
     get:
-      summary: Retrieve Response
+      summary: ChatGPT Retrieve Response
       description: |
         Retrieves a model response with the given ID.
       operationId: getResponse
@@ -193,7 +193,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
-      summary: Delete Response
+      summary: ChatGPT Delete Response
       description: |
         Deletes a model response with the given ID.
       operationId: deleteResponse
@@ -233,7 +233,7 @@ paths:
 
   /responses/{response_id}/input_items:
     get:
-      summary: List Input Items
+      summary: ChatGPT List Input Items
       description: |
         Returns a list of input items for a given response.
       operationId: listResponseInputItems
