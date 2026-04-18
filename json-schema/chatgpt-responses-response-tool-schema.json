@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResponseTool",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of the tool."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the function. Required for function type tools.\n"
+    },
+    "description": {
+      "type": "string",
+      "description": "A description of what the function does."
+    },
+    "parameters": {
+      "type": "object",
+      "description": "The parameters the function accepts, described as a JSON\nSchema object. Required for function type tools.\n"
+    },
+    "strict": {
+      "type": "boolean",
+      "description": "Whether strict schema adherence is enabled for function tools.\n"
+    },
+    "vector_store_ids": {
+      "type": "array",
+      "description": "The IDs of the vector stores to search. Required for\nfile_search type tools.\n"
+    },
+    "max_num_results": {
+      "type": "integer",
+      "description": "The maximum number of results to return from file search.\n"
+    },
+    "ranking_options": {
+      "type": "object",
+      "description": "Ranking options for file search results."
+    },
+    "container": {
+      "type": "object",
+      "description": "The container for the code interpreter tool. Specifies\nthe sandbox environment.\n"
+    },
+    "display_width": {
+      "type": "integer",
+      "description": "The width of the computer display in pixels. Required\nfor computer_use_preview type.\n"
+    },
+    "display_height": {
+      "type": "integer",
+      "description": "The height of the computer display in pixels. Required\nfor computer_use_preview type.\n"
+    },
+    "environment": {
+      "type": "string",
+      "description": "The environment of the computer. Required for\ncomputer_use_preview type.\n"
+    },
+    "server_label": {
+      "type": "string",
+      "description": "A label for the MCP server. Required for mcp type tools.\n"
+    },
+    "server_url": {
+      "type": "string",
+      "description": "The URL of the MCP server. Required for mcp type tools.\n"
+    },
+    "allowed_tools": {
+      "type": "array",
+      "description": "The list of allowed tool names from the MCP server.\n"
+    },
+    "headers": {
+      "type": "object",
+      "description": "Headers to pass to the MCP server for authentication.\n"
+    }
+  }
+}

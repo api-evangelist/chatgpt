@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "TokenLogprob",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string"
+    },
+    "logprob": {
+      "type": "number"
+    },
+    "bytes": {
+      "type": "array"
+    },
+    "top_logprobs": {
+      "type": "array"
+    }
+  }
+}

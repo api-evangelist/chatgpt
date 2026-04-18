@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ResponseInputContentPart",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "file_id": {
+      "type": "string"
+    },
+    "filename": {
+      "type": "string"
+    }
+  }
+}

@@ -18,20 +18,20 @@ info:
     url: https://openai.com/content/images/2023/05/openai-avatar.png
 
 servers:
-  - url: https://api.openai.com/v1
-    description: OpenAI Production Server
+- url: https://api.openai.com/v1
+  description: OpenAI Production Server
 
 security:
-  - BearerAuth: []
+- BearerAuth: []
 
 tags:
-  - name: Responses
-    description: Create, retrieve, and manage model responses
+- name: Responses
+  description: Create, retrieve, and manage model responses
 
 paths:
   /responses:
     post:
-      summary: ChatGPT Create Response
+      summary: Chatgpt Create Response
       description: |
         Creates a model response. Provide text or image inputs to generate
         text or JSON outputs. The Responses API supports built-in tools for
@@ -40,7 +40,7 @@ paths:
         using the previous_response_id parameter.
       operationId: createResponse
       tags:
-        - Responses
+      - Responses
       requestBody:
         required: true
         content:
@@ -59,31 +59,31 @@ paths:
                   model: gpt-4o
                   instructions: You are a helpful coding assistant.
                   input:
-                    - role: user
-                      content: How do I sort a list in Python?
+                  - role: user
+                    content: How do I sort a list in Python?
               WithWebSearch:
                 summary: With web search tool
                 value:
                   model: gpt-4o
                   tools:
-                    - type: web_search_preview
+                  - type: web_search_preview
                   input: What was the score of the latest Super Bowl?
               WithFunctionTool:
                 summary: With function calling
                 value:
                   model: gpt-4o
                   tools:
-                    - type: function
-                      name: get_weather
-                      description: Get the current weather for a location
-                      parameters:
-                        type: object
-                        properties:
-                          location:
-                            type: string
-                            description: The city and state
-                        required:
-                          - location
+                  - type: function
+                    name: get_weather
+                    description: Get the current weather for a location
+                    parameters:
+                      type: object
+                      properties:
+                        location:
+                          type: string
+                          description: The city and state
+                      required:
+                      - location
                   input: What is the weather in San Francisco?
               MultiTurn:
                 summary: Multi-turn conversation
@@ -91,8 +91,8 @@ paths:
                   model: gpt-4o
                   previous_response_id: resp_abc123
                   input:
-                    - role: user
-                      content: Tell me more about that.
+                  - role: user
+                    content: Tell me more about that.
       responses:
         '200':
           description: Successful response
@@ -110,14 +110,15 @@ paths:
                     model: gpt-4o-2024-08-06
                     status: completed
                     output:
-                      - type: message
-                        id: msg_abc123
-                        role: assistant
-                        status: completed
-                        content:
-                          - type: output_text
-                            text: Once upon a time, a sparkly unicorn named Luna danced across rainbow bridges every night. She sprinkled stardust on sleeping children to give them the sweetest dreams. And every morning, she returned to her cloud castle to rest until the next magical evening.
-                            annotations: []
+                    - type: message
+                      id: msg_abc123
+                      role: assistant
+                      status: completed
+                      content:
+                      - type: output_text
+                        text: Once upon a time, a sparkly unicorn named Luna danced across rainbow bridges every night. She sprinkled stardust on sleeping children to give them the sweetest dreams. 
+                          And every morning, she returned to her cloud castle to rest until the next magical evening.
+                        annotations: []
                     usage:
                       input_tokens: 36
                       output_tokens: 52
@@ -128,18 +129,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createresponse400Example:
+                  summary: Default createResponse 400 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      param: example_value
+                      code: example_value
         '401':
           description: Unauthorized - Invalid or missing API key
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createresponse401Example:
+                  summary: Default createResponse 401 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      param: example_value
+                      code: example_value
         '429':
           description: Too Many Requests - Rate limit exceeded
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createresponse429Example:
+                  summary: Default createResponse 429 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      param: example_value
+                      code: example_value
         '500':
           description: Internal Server Error
           content:
@@ -147,38 +178,53 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+              examples:
+                Createresponse500Example:
+                  summary: Default createResponse 500 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      param: example_value
+                      code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /responses/{response_id}:
     get:
-      summary: ChatGPT Retrieve Response
+      summary: Chatgpt Retrieve Response
       description: |
         Retrieves a model response with the given ID.
       operationId: getResponse
       tags:
-        - Responses
+      - Responses
       parameters:
-        - name: response_id
-          in: path
-          required: true
-          description: The ID of the response to retrieve.
-          schema:
+      - name: response_id
+        in: path
+        required: true
+        description: The ID of the response to retrieve.
+        schema:
+          type: string
+        example: '500123'
+      - name: include
+        in: query
+        required: false
+        description: |
+          Additional fields to include in the response. Use
+          file_search_call.results to include file search results,
+          message.input_image.image_url to include image URLs, or
+          computer_call_output.output.image_url to include computer
+          call output images.
+        schema:
+          type: array
+          items:
             type: string
-        - name: include
-          in: query
-          required: false
-          description: |
-            Additional fields to include in the response. Use
-            file_search_call.results to include file search results,
-            message.input_image.image_url to include image URLs, or
-            computer_call_output.output.image_url to include computer
-            call output images.
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - file_search_call.results
-                - message.input_image.image_url
-                - computer_call_output.output.image_url
+            enum:
+            - file_search_call.results
+            - message.input_image.image_url
+            - computer_call_output.output.image_url
+        example: []
       responses:
         '200':
           description: Successful retrieval
@@ -186,26 +232,104 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseObject'
+              examples:
+                Getresponse200Example:
+                  summary: Default getResponse 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    object: response
+                    created_at: '2026-01-15T10:30:00Z'
+                    model: example_value
+                    status: completed
+                    output:
+                    - type: message
+                      id: abc123
+                      role: assistant
+                      status: completed
+                      content: {}
+                      name: Example Title
+                      call_id: '500123'
+                      arguments: example_value
+                      summary: {}
+                    usage:
+                      input_tokens: 10
+                      input_tokens_details:
+                        cached_tokens: 10
+                      output_tokens: 10
+                      output_tokens_details:
+                        reasoning_tokens: 10
+                      total_tokens: 10
+                    error:
+                      code: example_value
+                      message: example_value
+                    incomplete_details:
+                      reason: max_output_tokens
+                    instructions: example_value
+                    metadata: example_value
+                    temperature: 42.5
+                    top_p: 42.5
+                    max_output_tokens: 10
+                    previous_response_id: '500123'
+                    reasoning:
+                      effort: low
+                      summary: example_value
+                    text: example_value
+                    tools:
+                    - type: function
+                      name: Example Title
+                      description: A sample description.
+                      parameters: example_value
+                      strict: true
+                      vector_store_ids: {}
+                      max_num_results: 10
+                      ranking_options: {}
+                      container: {}
+                      display_width: 10
+                      display_height: 10
+                      environment: browser
+                      server_label: example_value
+                      server_url: https://www.example.com
+                      allowed_tools: {}
+                      headers: example_value
+                    tool_choice: example_value
+                    truncation: example_value
+                    user: example_value
+                    service_tier: example_value
         '404':
           description: Not Found - Response does not exist
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getresponse404Example:
+                  summary: Default getResponse 404 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      param: example_value
+                      code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
-      summary: ChatGPT Delete Response
+      summary: Chatgpt Delete Response
       description: |
         Deletes a model response with the given ID.
       operationId: deleteResponse
       tags:
-        - Responses
+      - Responses
       parameters:
-        - name: response_id
-          in: path
-          required: true
-          description: The ID of the response to delete.
-          schema:
-            type: string
+      - name: response_id
+        in: path
+        required: true
+        description: The ID of the response to delete.
+        schema:
+          type: string
+        example: '500123'
       responses:
         '200':
           description: Response deleted successfully
@@ -220,10 +344,18 @@ paths:
                   object:
                     type: string
                     enum:
-                      - response.deleted
+                    - response.deleted
                   deleted:
                     type: boolean
                     description: Whether the response was deleted.
+              examples:
+                Deleteresponse200Example:
+                  summary: Default deleteResponse 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    object: response.deleted
+                    deleted: true
         '404':
           description: Not Found - Response does not exist
           content:
@@ -231,58 +363,76 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+              examples:
+                Deleteresponse404Example:
+                  summary: Default deleteResponse 404 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      param: example_value
+                      code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /responses/{response_id}/input_items:
     get:
-      summary: ChatGPT List Input Items
+      summary: Chatgpt List Input Items
       description: |
         Returns a list of input items for a given response.
       operationId: listResponseInputItems
       tags:
-        - Responses
+      - Responses
       parameters:
-        - name: response_id
-          in: path
-          required: true
-          description: The ID of the response to retrieve input items for.
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: |
-            A limit on the number of objects to be returned. Limit can
-            range between 1 and 100, and the default is 20.
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 100
-            default: 20
-        - name: order
-          in: query
-          required: false
-          description: Sort order by the created_at timestamp.
-          schema:
-            type: string
-            enum:
-              - asc
-              - desc
-            default: asc
-        - name: after
-          in: query
-          required: false
-          description: |
-            A cursor for use in pagination. An object ID that defines
-            your place in the list.
-          schema:
-            type: string
-        - name: before
-          in: query
-          required: false
-          description: |
-            A cursor for use in pagination. An object ID that defines
-            your place in the list.
-          schema:
-            type: string
+      - name: response_id
+        in: path
+        required: true
+        description: The ID of the response to retrieve input items for.
+        schema:
+          type: string
+        example: '500123'
+      - name: limit
+        in: query
+        required: false
+        description: |
+          A limit on the number of objects to be returned. Limit can
+          range between 1 and 100, and the default is 20.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+        example: 10
+      - name: order
+        in: query
+        required: false
+        description: Sort order by the created_at timestamp.
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+        example: asc
+      - name: after
+        in: query
+        required: false
+        description: |
+          A cursor for use in pagination. An object ID that defines
+          your place in the list.
+        schema:
+          type: string
+        example: example_value
+      - name: before
+        in: query
+        required: false
+        description: |
+          A cursor for use in pagination. An object ID that defines
+          your place in the list.
+        schema:
+          type: string
+        example: example_value
       responses:
         '200':
           description: Successful retrieval of input items
@@ -290,6 +440,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseInputItemList'
+              examples:
+                Listresponseinputitems200Example:
+                  summary: Default listResponseInputItems 200 response
+                  x-microcks-default: true
+                  value:
+                    object: list
+                    data:
+                    - role: user
+                      content: example_value
+                      type: message
+                      id: abc123
+                      call_id: '500123'
+                      output: example_value
+                      status: completed
+                    has_more: true
+                    first_id: '500123'
+                    last_id: '500123'
         '404':
           description: Not Found - Response does not exist
           content:
@@ -297,6 +464,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+              examples:
+                Listresponseinputitems404Example:
+                  summary: Default listResponseInputItems 404 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      param: example_value
+                      code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     BearerAuth:
@@ -311,8 +491,8 @@ components:
     CreateResponseRequest:
       type: object
       required:
-        - model
-        - input
+      - model
+      - input
       properties:
         model:
           type: string
@@ -321,26 +501,27 @@ components:
             OpenAI offers a wide range of models with different capabilities,
             performance characteristics, and price points.
           examples:
-            - gpt-4o
-            - gpt-4o-mini
-            - o1
-            - o3
-            - o3-mini
-            - gpt-4.1
-            - gpt-4.1-mini
-            - gpt-4.1-nano
+          - gpt-4o
+          - gpt-4o-mini
+          - o1
+          - o3
+          - o3-mini
+          - gpt-4.1
+          - gpt-4.1-mini
+          - gpt-4.1-nano
         input:
           description: |
             Text, image, or file inputs to the model, used to generate
             a response. Can be a string for simple text input, or an
             array of input items for multi-turn and multimodal inputs.
           oneOf:
-            - type: string
-              description: A text input to the model.
-            - type: array
-              description: A list of input items to the model.
-              items:
-                $ref: '#/components/schemas/ResponseInputItem'
+          - type: string
+            description: A text input to the model.
+          - type: array
+            description: A list of input items to the model.
+            items:
+              $ref: '#/components/schemas/ResponseInputItem'
+          example: example_value
         instructions:
           type: string
           description: |
@@ -348,6 +529,7 @@ components:
             of the model's context. Use this for top-level guidance
             on the model's behavior, tone, or constraints.
           nullable: true
+          example: example_value
         previous_response_id:
           type: string
           description: |
@@ -355,6 +537,7 @@ components:
             this to create multi-turn conversations. The model will
             use the previous response as context.
           nullable: true
+          example: '500123'
         max_output_tokens:
           type: integer
           description: |
@@ -362,6 +545,7 @@ components:
             for a response, including visible output tokens and reasoning
             tokens.
           nullable: true
+          example: 10
         temperature:
           type: number
           description: |
@@ -371,6 +555,7 @@ components:
           minimum: 0
           maximum: 2
           default: 1
+          example: 42.5
         top_p:
           type: number
           description: |
@@ -380,6 +565,7 @@ components:
           minimum: 0
           maximum: 1
           default: 1
+          example: 42.5
         tools:
           type: array
           description: |
@@ -389,18 +575,20 @@ components:
             tools.
           items:
             $ref: '#/components/schemas/ResponseTool'
+          example: []
         tool_choice:
           description: |
             How the model should select which tool to use. auto allows
             the model to decide, required forces the model to use a
             tool, none disables tool use.
           oneOf:
-            - type: string
-              enum:
-                - auto
-                - required
-                - none
-            - $ref: '#/components/schemas/ResponseToolChoice'
+          - type: string
+            enum:
+            - auto
+            - required
+            - none
+          - $ref: '#/components/schemas/ResponseToolChoice'
+          example: example_value
         truncation:
           type: string
           description: |
@@ -409,10 +597,11 @@ components:
             disabled will error if the context exceeds the model's
             context window.
           enum:
-            - auto
-            - disabled
+          - auto
+          - disabled
           default: disabled
           nullable: true
+          example: auto
         text:
           type: object
           description: Configuration for text response format.
@@ -426,9 +615,9 @@ components:
                   type: string
                   description: The format type.
                   enum:
-                    - text
-                    - json_object
-                    - json_schema
+                  - text
+                  - json_object
+                  - json_schema
                 name:
                   type: string
                   description: |
@@ -445,6 +634,7 @@ components:
                 strict:
                   type: boolean
                   description: Whether strict schema adherence is enabled.
+          example: example_value
         reasoning:
           type: object
           description: |
@@ -457,9 +647,9 @@ components:
               description: |
                 Constrains effort on reasoning for reasoning models.
               enum:
-                - low
-                - medium
-                - high
+              - low
+              - medium
+              - high
               default: medium
             summary:
               type: string
@@ -469,16 +659,18 @@ components:
                 behavior. Supported values are auto, concise, and
                 detailed.
               enum:
-                - auto
-                - concise
-                - detailed
+              - auto
+              - concise
+              - detailed
               nullable: true
+          example: example_value
         store:
           type: boolean
           description: |
             Whether to store the generated response for later retrieval
             via the GET /responses endpoint. Defaults to true.
           default: true
+          example: true
         metadata:
           type: object
           description: |
@@ -488,44 +680,50 @@ components:
           additionalProperties:
             type: string
           maxProperties: 16
+          example: example_value
         stream:
           type: boolean
           description: |
             If set to true, the model response data will be streamed
             as server-sent events to the client.
           default: false
+          example: true
         parallel_tool_calls:
           type: boolean
           description: Whether to allow the model to run tool calls in parallel.
           default: true
+          example: true
         user:
           type: string
           description: |
             A unique identifier representing your end-user, which can
             help OpenAI to monitor and detect abuse.
 
+          example: example_value
     ResponseInputItem:
       type: object
       required:
-        - role
+      - role
       properties:
         role:
           type: string
           description: The role of the input item.
           enum:
-            - user
-            - assistant
-            - system
-            - developer
+          - user
+          - assistant
+          - system
+          - developer
+          example: user
         content:
           description: |
             The content of the input item. Can be a string or an array
             of content parts for multimodal input.
           oneOf:
-            - type: string
-            - type: array
-              items:
-                $ref: '#/components/schemas/ResponseInputContentPart'
+          - type: string
+          - type: array
+            items:
+              $ref: '#/components/schemas/ResponseInputContentPart'
+          example: example_value
         type:
           type: string
           description: |
@@ -533,100 +731,116 @@ components:
             conversation messages, or specialized types like
             function_call_output.
           enum:
-            - message
-            - function_call_output
-            - item_reference
+          - message
+          - function_call_output
+          - item_reference
+          example: message
         id:
           type: string
           description: |
             The unique ID of the input item. Used for item_reference type.
+          example: abc123
         call_id:
           type: string
           description: |
             The ID of the function call this output corresponds to.
             Required for function_call_output type.
+          example: '500123'
         output:
           type: string
           description: |
             The output of the function call. Required for
             function_call_output type.
+          example: example_value
         status:
           type: string
           description: The status of the input item.
           enum:
-            - completed
-            - incomplete
+          - completed
+          - incomplete
 
+          example: completed
     ResponseInputContentPart:
       type: object
       required:
-        - type
+      - type
       properties:
         type:
           type: string
           description: The type of the content part.
           enum:
-            - input_text
-            - input_image
-            - input_file
+          - input_text
+          - input_image
+          - input_file
+          example: input_text
         text:
           type: string
           description: The text content. Used when type is input_text.
+          example: example_value
         image_url:
           type: string
           format: uri
           description: |
             The URL of the image. Used when type is input_image.
+          example: https://www.example.com
         detail:
           type: string
           description: |
             The detail level for image inputs.
           enum:
-            - auto
-            - low
-            - high
+          - auto
+          - low
+          - high
           default: auto
+          example: auto
         file_id:
           type: string
           description: |
             The ID of the uploaded file. Used when type is input_file.
+          example: '500123'
         filename:
           type: string
           description: The name of the file.
 
+          example: example_value
     ResponseTool:
       type: object
       required:
-        - type
+      - type
       properties:
         type:
           type: string
           description: The type of the tool.
           enum:
-            - function
-            - web_search_preview
-            - file_search
-            - code_interpreter
-            - computer_use_preview
-            - mcp
-            - image_generation
+          - function
+          - web_search_preview
+          - file_search
+          - code_interpreter
+          - computer_use_preview
+          - mcp
+          - image_generation
+          example: function
         name:
           type: string
           description: |
             The name of the function. Required for function type tools.
+          example: Example Title
         description:
           type: string
           description: A description of what the function does.
+          example: A sample description.
         parameters:
           type: object
           description: |
             The parameters the function accepts, described as a JSON
             Schema object. Required for function type tools.
+          example: example_value
         strict:
           type: boolean
           description: |
             Whether strict schema adherence is enabled for function tools.
           default: false
+          example: true
         vector_store_ids:
           type: array
           description: |
@@ -634,6 +848,7 @@ components:
             file_search type tools.
           items:
             type: string
+          example: []
         max_num_results:
           type: integer
           description: |
@@ -641,6 +856,7 @@ components:
           minimum: 1
           maximum: 50
           default: 20
+          example: 10
         ranking_options:
           type: object
           description: Ranking options for file search results.
@@ -649,14 +865,15 @@ components:
               type: string
               description: The ranker to use.
               enum:
-                - auto
-                - default_2024_11_15
+              - auto
+              - default_2024_11_15
             score_threshold:
               type: number
               description: |
                 The minimum relevance score for results.
               minimum: 0
               maximum: 1
+          example: example_value
         container:
           type: object
           description: |
@@ -671,41 +888,48 @@ components:
               description: IDs of files available in the container.
               items:
                 type: string
+          example: example_value
         display_width:
           type: integer
           description: |
             The width of the computer display in pixels. Required
             for computer_use_preview type.
+          example: 10
         display_height:
           type: integer
           description: |
             The height of the computer display in pixels. Required
             for computer_use_preview type.
+          example: 10
         environment:
           type: string
           description: |
             The environment of the computer. Required for
             computer_use_preview type.
           enum:
-            - browser
-            - mac
-            - windows
-            - linux
+          - browser
+          - mac
+          - windows
+          - linux
+          example: browser
         server_label:
           type: string
           description: |
             A label for the MCP server. Required for mcp type tools.
+          example: example_value
         server_url:
           type: string
           format: uri
           description: |
             The URL of the MCP server. Required for mcp type tools.
+          example: https://www.example.com
         allowed_tools:
           type: array
           description: |
             The list of allowed tool names from the MCP server.
           items:
             type: string
+          example: []
         headers:
           type: object
           description: |
@@ -713,62 +937,70 @@ components:
           additionalProperties:
             type: string
 
+          example: example_value
     ResponseToolChoice:
       type: object
       required:
-        - type
+      - type
       properties:
         type:
           type: string
           description: The type of tool to force.
           enum:
-            - function
-            - file_search
-            - web_search_preview
-            - computer_use_preview
-            - code_interpreter
+          - function
+          - file_search
+          - web_search_preview
+          - computer_use_preview
+          - code_interpreter
+          example: function
         name:
           type: string
           description: |
             The name of the function to call. Required when type
             is function.
 
+          example: Example Title
     ResponseObject:
       type: object
       required:
-        - id
-        - object
-        - created_at
-        - model
-        - status
-        - output
-        - usage
+      - id
+      - object
+      - created_at
+      - model
+      - status
+      - output
+      - usage
       properties:
         id:
           type: string
           description: Unique identifier for the response.
+          example: abc123
         object:
           type: string
           description: The object type, always response.
           enum:
-            - response
+          - response
+          example: response
         created_at:
           type: integer
           description: |
             Unix timestamp (in seconds) of when the response was created.
+          example: '2026-01-15T10:30:00Z'
         model:
           type: string
           description: The model used to generate the response.
+          example: example_value
         status:
           type: string
           description: |
             The status of the response generation. One of completed,
             failed, in_progress, or incomplete.
           enum:
-            - completed
-            - failed
-            - in_progress
-            - incomplete
+          - completed
+          - failed
+          - in_progress
+          - incomplete
+          example: completed
         output:
           type: array
           description: |
@@ -777,6 +1009,7 @@ components:
             file search calls, computer actions, and reasoning items.
           items:
             $ref: '#/components/schemas/ResponseOutputItem'
+          example: []
         usage:
           $ref: '#/components/schemas/ResponseUsage'
         error:
@@ -791,6 +1024,7 @@ components:
             message:
               type: string
               description: A human-readable error message.
+          example: example_value
         incomplete_details:
           type: object
           description: |
@@ -801,34 +1035,41 @@ components:
               type: string
               description: The reason the response is incomplete.
               enum:
-                - max_output_tokens
-                - content_filter
+              - max_output_tokens
+              - content_filter
+          example: example_value
         instructions:
           type: string
           description: The instructions provided for the response.
           nullable: true
+          example: example_value
         metadata:
           type: object
           description: Metadata attached to the response.
           nullable: true
           additionalProperties:
             type: string
+          example: example_value
         temperature:
           type: number
           description: The sampling temperature used.
           nullable: true
+          example: 42.5
         top_p:
           type: number
           description: The nucleus sampling value used.
           nullable: true
+          example: 42.5
         max_output_tokens:
           type: integer
           description: The maximum output tokens setting.
           nullable: true
+          example: 10
         previous_response_id:
           type: string
           description: The ID of the previous response in the conversation.
           nullable: true
+          example: '500123'
         reasoning:
           type: object
           description: The reasoning configuration used.
@@ -837,71 +1078,82 @@ components:
             effort:
               type: string
               enum:
-                - low
-                - medium
-                - high
+              - low
+              - medium
+              - high
             summary:
               type: string
               nullable: true
+          example: example_value
         text:
           type: object
           description: The text format configuration used.
           nullable: true
+          example: example_value
         tools:
           type: array
           description: The tools available during response generation.
           items:
             $ref: '#/components/schemas/ResponseTool'
+          example: []
         tool_choice:
           description: The tool choice setting used.
+          example: example_value
         truncation:
           type: string
           description: The truncation strategy used.
           nullable: true
+          example: example_value
         user:
           type: string
           description: The end-user identifier.
           nullable: true
+          example: example_value
         service_tier:
           type: string
           description: The service tier used.
           nullable: true
 
+          example: example_value
     ResponseOutputItem:
       type: object
       required:
-        - type
+      - type
       properties:
         type:
           type: string
           description: The type of the output item.
           enum:
-            - message
-            - function_call
-            - web_search_call
-            - file_search_call
-            - computer_call
-            - code_interpreter_call
-            - reasoning
-            - mcp_call
-            - image_generation_call
-            - mcp_list_tools
-            - mcp_approval_request
+          - message
+          - function_call
+          - web_search_call
+          - file_search_call
+          - computer_call
+          - code_interpreter_call
+          - reasoning
+          - mcp_call
+          - image_generation_call
+          - mcp_list_tools
+          - mcp_approval_request
+          example: message
         id:
           type: string
           description: The unique ID of the output item.
+          example: abc123
         role:
           type: string
           description: The role of the output item.
           enum:
-            - assistant
+          - assistant
+          example: assistant
         status:
           type: string
           description: The status of the output item.
           enum:
-            - completed
-            - in_progress
-            - incomplete
+          - completed
+          - in_progress
+          - incomplete
+          example: completed
         content:
           type: array
           description: |
@@ -909,21 +1161,25 @@ components:
             is message.
           items:
             $ref: '#/components/schemas/ResponseOutputContentPart'
+          example: []
         name:
           type: string
           description: |
             The name of the function being called. Present when type
             is function_call.
+          example: Example Title
         call_id:
           type: string
           description: |
             The unique ID of the function call. Present when type is
             function_call.
+          example: '500123'
         arguments:
           type: string
           description: |
             The arguments to the function call in JSON format. Present
             when type is function_call.
+          example: example_value
         summary:
           type: array
           description: |
@@ -935,27 +1191,31 @@ components:
               type:
                 type: string
                 enum:
-                  - summary_text
+                - summary_text
               text:
                 type: string
 
+          example: []
     ResponseOutputContentPart:
       type: object
       required:
-        - type
+      - type
       properties:
         type:
           type: string
           description: The type of the content part.
           enum:
-            - output_text
-            - refusal
+          - output_text
+          - refusal
+          example: output_text
         text:
           type: string
           description: The text content.
+          example: example_value
         refusal:
           type: string
           description: The refusal text.
+          example: example_value
         annotations:
           type: array
           description: |
@@ -964,50 +1224,59 @@ components:
           items:
             $ref: '#/components/schemas/Annotation'
 
+          example: []
     Annotation:
       type: object
       required:
-        - type
+      - type
       properties:
         type:
           type: string
           description: The type of annotation.
           enum:
-            - url_citation
-            - file_citation
-            - file_path
+          - url_citation
+          - file_citation
+          - file_path
+          example: url_citation
         start_index:
           type: integer
           description: The start index of the annotation in the text.
+          example: 10
         end_index:
           type: integer
           description: The end index of the annotation in the text.
+          example: 10
         url:
           type: string
           format: uri
           description: The URL cited. Present for url_citation type.
+          example: https://www.example.com
         title:
           type: string
           description: The title of the cited resource.
+          example: Example Title
         file_id:
           type: string
           description: |
             The ID of the cited file. Present for file_citation and
             file_path types.
+          example: '500123'
         quote:
           type: string
           description: The relevant quote from the file.
 
+          example: example_value
     ResponseUsage:
       type: object
       required:
-        - input_tokens
-        - output_tokens
-        - total_tokens
+      - input_tokens
+      - output_tokens
+      - total_tokens
       properties:
         input_tokens:
           type: integer
           description: The number of input tokens used.
+          example: 10
         input_tokens_details:
           type: object
           description: A detailed breakdown of input token usage.
@@ -1015,9 +1284,11 @@ components:
             cached_tokens:
               type: integer
               description: The number of cached input tokens.
+          example: example_value
         output_tokens:
           type: integer
           description: The number of output tokens generated.
+          example: 10
         output_tokens_details:
           type: object
           description: A detailed breakdown of output token usage.
@@ -1025,46 +1296,53 @@ components:
             reasoning_tokens:
               type: integer
               description: The number of reasoning tokens generated.
+          example: example_value
         total_tokens:
           type: integer
           description: The total number of tokens used.
 
+          example: 10
     ResponseInputItemList:
       type: object
       required:
-        - object
-        - data
+      - object
+      - data
       properties:
         object:
           type: string
           description: The object type.
           enum:
-            - list
+          - list
+          example: list
         data:
           type: array
           description: The list of input items.
           items:
             $ref: '#/components/schemas/ResponseInputItem'
+          example: []
         has_more:
           type: boolean
           description: Whether there are more items to retrieve.
+          example: true
         first_id:
           type: string
           description: The ID of the first item in the list.
+          example: '500123'
         last_id:
           type: string
           description: The ID of the last item in the list.
 
+          example: '500123'
     ErrorResponse:
       type: object
       required:
-        - error
+      - error
       properties:
         error:
           type: object
           required:
-            - message
-            - type
+          - message
+          - type
           properties:
             message:
               type: string
@@ -1080,3 +1358,4 @@ components:
               type: string
               description: The error code.
               nullable: true
+          example: example_value

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResponseUsage",
+  "type": "object",
+  "properties": {
+    "input_tokens": {
+      "type": "integer",
+      "description": "The number of input tokens used."
+    },
+    "input_tokens_details": {
+      "type": "object",
+      "description": "A detailed breakdown of input token usage."
+    },
+    "output_tokens": {
+      "type": "integer",
+      "description": "The number of output tokens generated."
+    },
+    "output_tokens_details": {
+      "type": "object",
+      "description": "A detailed breakdown of output token usage."
+    },
+    "total_tokens": {
+      "type": "integer",
+      "description": "The total number of tokens used."
+    }
+  }
+}

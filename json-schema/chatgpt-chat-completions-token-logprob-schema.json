@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TokenLogprob",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "The token."
+    },
+    "logprob": {
+      "type": "number",
+      "description": "The log probability of this token."
+    },
+    "bytes": {
+      "type": "array",
+      "description": "A list of integers representing the UTF-8 bytes\nrepresentation of the token.\n"
+    },
+    "top_logprobs": {
+      "type": "array",
+      "description": "List of the most likely tokens and their log probability.\n"
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ResponseObject",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "integer"
+    },
+    "model": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "output": {
+      "type": "array"
+    },
+    "error": {
+      "type": "object"
+    },
+    "incomplete_details": {
+      "type": "object"
+    },
+    "instructions": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "temperature": {
+      "type": "number"
+    },
+    "top_p": {
+      "type": "number"
+    },
+    "max_output_tokens": {
+      "type": "integer"
+    },
+    "previous_response_id": {
+      "type": "string"
+    },
+    "reasoning": {
+      "type": "object"
+    },
+    "text": {
+      "type": "object"
+    },
+    "tools": {
+      "type": "array"
+    },
+    "tool_choice": {
+      "type": "string"
+    },
+    "truncation": {
+      "type": "string"
+    },
+    "user": {
+      "type": "string"
+    },
+    "service_tier": {
+      "type": "string"
+    }
+  }
+}

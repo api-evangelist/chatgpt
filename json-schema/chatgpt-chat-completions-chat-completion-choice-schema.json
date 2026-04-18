@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ChatCompletionChoice",
+  "type": "object",
+  "properties": {
+    "index": {
+      "type": "integer",
+      "description": "The index of the choice in the list."
+    },
+    "finish_reason": {
+      "type": "string",
+      "description": "The reason the model stopped generating tokens. stop means\nthe model hit a natural stop point or a provided stop\nsequence. length means the maximum token limit was reached.\ntool_calls means the model called a tool. content_filter\nmeans content was omitted due to a flag from content filters.\n"
+    },
+    "logprobs": {
+      "type": "object",
+      "description": "Log probability information for the choice."
+    }
+  }
+}

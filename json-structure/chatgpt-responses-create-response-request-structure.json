@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CreateResponseRequest",
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string"
+    },
+    "input": {
+      "type": "string"
+    },
+    "instructions": {
+      "type": "string"
+    },
+    "previous_response_id": {
+      "type": "string"
+    },
+    "max_output_tokens": {
+      "type": "integer"
+    },
+    "temperature": {
+      "type": "number"
+    },
+    "top_p": {
+      "type": "number"
+    },
+    "tools": {
+      "type": "array"
+    },
+    "tool_choice": {
+      "type": "string"
+    },
+    "truncation": {
+      "type": "string"
+    },
+    "text": {
+      "type": "object"
+    },
+    "reasoning": {
+      "type": "object"
+    },
+    "store": {
+      "type": "boolean"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "stream": {
+      "type": "boolean"
+    },
+    "parallel_tool_calls": {
+      "type": "boolean"
+    },
+    "user": {
+      "type": "string"
+    }
+  }
+}

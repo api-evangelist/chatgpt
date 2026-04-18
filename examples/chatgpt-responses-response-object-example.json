@@ -1,0 +1,23 @@
+{
+  "id": "abc123",
+  "object": "example_value",
+  "created_at": "2026-01-15T10:30:00Z",
+  "model": "example_value",
+  "status": "example_value",
+  "output": [],
+  "error": "example_value",
+  "incomplete_details": "example_value",
+  "instructions": "example_value",
+  "metadata": "example_value",
+  "temperature": 42.5,
+  "top_p": 42.5,
+  "max_output_tokens": 10,
+  "previous_response_id": "500123",
+  "reasoning": "example_value",
+  "text": "example_value",
+  "tools": [],
+  "tool_choice": "example_value",
+  "truncation": "example_value",
+  "user": "example_value",
+  "service_tier": "example_value"
+}

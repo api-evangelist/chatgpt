@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResponseFormat",
+  "type": "object",
+  "description": "An object specifying the format that the model must output.\nSetting to json_schema enables Structured Outputs which ensures\nthe model will match your supplied JSON schema.\n",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of response format."
+    },
+    "json_schema": {
+      "type": "object",
+      "description": "The JSON schema the model must conform to. Required when\ntype is json_schema.\n"
+    }
+  }
+}

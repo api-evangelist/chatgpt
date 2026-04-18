@@ -1,0 +1,19 @@
+{
+  "model": "example_value",
+  "input": "example_value",
+  "instructions": "example_value",
+  "previous_response_id": "500123",
+  "max_output_tokens": 10,
+  "temperature": 42.5,
+  "top_p": 42.5,
+  "tools": [],
+  "tool_choice": "example_value",
+  "truncation": "example_value",
+  "text": "example_value",
+  "reasoning": "example_value",
+  "store": true,
+  "metadata": "example_value",
+  "stream": true,
+  "parallel_tool_calls": true,
+  "user": "example_value"
+}

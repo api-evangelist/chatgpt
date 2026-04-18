@@ -1,0 +1,11 @@
+{
+  "type": "example_value",
+  "id": "abc123",
+  "role": "example_value",
+  "status": "example_value",
+  "content": [],
+  "name": "Example Title",
+  "call_id": "500123",
+  "arguments": "example_value",
+  "summary": []
+}

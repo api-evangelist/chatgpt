@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResponseOutputItem",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of the output item."
+    },
+    "id": {
+      "type": "string",
+      "description": "The unique ID of the output item."
+    },
+    "role": {
+      "type": "string",
+      "description": "The role of the output item."
+    },
+    "status": {
+      "type": "string",
+      "description": "The status of the output item."
+    },
+    "content": {
+      "type": "array",
+      "description": "The content of the output message. Present when type\nis message.\n"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the function being called. Present when type\nis function_call.\n"
+    },
+    "call_id": {
+      "type": "string",
+      "description": "The unique ID of the function call. Present when type is\nfunction_call.\n"
+    },
+    "arguments": {
+      "type": "string",
+      "description": "The arguments to the function call in JSON format. Present\nwhen type is function_call.\n"
+    },
+    "summary": {
+      "type": "array",
+      "description": "A summary of the reasoning performed by the model. Present\nwhen type is reasoning.\n"
+    }
+  }
+}

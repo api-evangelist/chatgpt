@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResponseInputItem",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "The role of the input item."
+    },
+    "content": {
+      "type": "string",
+      "description": "The content of the input item. Can be a string or an array\nof content parts for multimodal input.\n"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of the input item. Typically message for\nconversation messages, or specialized types like\nfunction_call_output.\n"
+    },
+    "id": {
+      "type": "string",
+      "description": "The unique ID of the input item. Used for item_reference type.\n"
+    },
+    "call_id": {
+      "type": "string",
+      "description": "The ID of the function call this output corresponds to.\nRequired for function_call_output type.\n"
+    },
+    "output": {
+      "type": "string",
+      "description": "The output of the function call. Required for\nfunction_call_output type.\n"
+    },
+    "status": {
+      "type": "string",
+      "description": "The status of the input item."
+    }
+  }
+}

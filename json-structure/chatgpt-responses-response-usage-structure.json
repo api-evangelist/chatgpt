@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ResponseUsage",
+  "type": "object",
+  "properties": {
+    "input_tokens": {
+      "type": "integer"
+    },
+    "input_tokens_details": {
+      "type": "object"
+    },
+    "output_tokens": {
+      "type": "integer"
+    },
+    "output_tokens_details": {
+      "type": "object"
+    },
+    "total_tokens": {
+      "type": "integer"
+    }
+  }
+}

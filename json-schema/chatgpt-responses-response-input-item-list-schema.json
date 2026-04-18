@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResponseInputItemList",
+  "type": "object",
+  "properties": {
+    "object": {
+      "type": "string",
+      "description": "The object type."
+    },
+    "data": {
+      "type": "array",
+      "description": "The list of input items."
+    },
+    "has_more": {
+      "type": "boolean",
+      "description": "Whether there are more items to retrieve."
+    },
+    "first_id": {
+      "type": "string",
+      "description": "The ID of the first item in the list."
+    },
+    "last_id": {
+      "type": "string",
+      "description": "The ID of the last item in the list."
+    }
+  }
+}

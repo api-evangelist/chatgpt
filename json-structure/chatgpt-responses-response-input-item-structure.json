@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ResponseInputItem",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "call_id": {
+      "type": "string"
+    },
+    "output": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  }
+}

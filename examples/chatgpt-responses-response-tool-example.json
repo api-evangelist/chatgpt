@@ -1,0 +1,18 @@
+{
+  "type": "example_value",
+  "name": "Example Title",
+  "description": "A sample description.",
+  "parameters": "example_value",
+  "strict": true,
+  "vector_store_ids": [],
+  "max_num_results": 10,
+  "ranking_options": "example_value",
+  "container": "example_value",
+  "display_width": 10,
+  "display_height": 10,
+  "environment": "example_value",
+  "server_label": "example_value",
+  "server_url": "https://www.example.com",
+  "allowed_tools": [],
+  "headers": "example_value"
+}

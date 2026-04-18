@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ChatCompletionAssistantMessage",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "tool_calls": {
+      "type": "array"
+    },
+    "refusal": {
+      "type": "string"
+    }
+  }
+}

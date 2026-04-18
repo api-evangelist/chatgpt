@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Annotation",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "start_index": {
+      "type": "integer"
+    },
+    "end_index": {
+      "type": "integer"
+    },
+    "url": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "file_id": {
+      "type": "string"
+    },
+    "quote": {
+      "type": "string"
+    }
+  }
+}
