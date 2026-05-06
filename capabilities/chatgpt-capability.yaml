@@ -1,0 +1,68 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ChatGPT Chat Completions API
+  description: OpenAI's Chat Completions API for generating conversational responses using GPT models. Given a list of messages
+    comprising a conversation, the model returns a response. Supports text generation, function calling, structured outputs,
+    vision inputs, and streaming.
+  tags:
+  - Chatgpt
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: chatgpt
+    baseUri: https://api.openai.com/v1
+    description: ChatGPT Chat Completions API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{CHATGPT_TOKEN}}'
+    resources:
+    - name: chat-completions
+      path: /chat/completions
+      operations:
+      - name: createchatcompletion
+        method: POST
+        description: Chatgpt Create Chat Completion
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: chatgpt-rest
+    description: REST adapter for ChatGPT Chat Completions API.
+    resources:
+    - path: /chat/completions
+      name: createchatcompletion
+      operations:
+      - method: POST
+        name: createchatcompletion
+        description: Chatgpt Create Chat Completion
+        call: chatgpt.createchatcompletion
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: chatgpt-mcp
+    transport: http
+    description: MCP adapter for ChatGPT Chat Completions API for AI agent use.
+    tools:
+    - name: createchatcompletion
+      description: Chatgpt Create Chat Completion
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: chatgpt.createchatcompletion
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    CHATGPT_TOKEN: CHATGPT_TOKEN
