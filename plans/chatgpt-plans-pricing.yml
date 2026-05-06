@@ -4,185 +4,172 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: ChatGPT
 providerId: chatgpt
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Agents
-  - AI
-  - ChatGPT
-  - Embeddings
-  - Fine-Tuning
-  - GPT-4
-  - GPT-5
-  - Language Model
-  - OpenAI
-  - Realtime
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+  - Artificial Intelligence
+  - LLM
+  - Conversational AI
+  - SaaS
+description: ChatGPT is OpenAI's hosted assistant product, sold as consumer and business subscription
+  tiers (Free, Plus, Pro, Team, Enterprise, Edu) with per-seat monthly pricing. Developer access to
+  the underlying GPT models is sold separately through the OpenAI Platform API on a per-token usage
+  basis. Subscription tiers gate model access (frontier vs lighter models), tool/feature availability,
+  and usage caps; high-volume model API consumption is metered per million tokens.
+sources:
+  - https://openai.com/chatgpt/pricing
+  - https://openai.com/api/pricing
+  - https://platform.openai.com/docs/pricing
 plans:
   - id: chatgpt-free
     name: Free
     type: freemium
-    description: Free entry tier for the ChatGPT API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    description: Free ChatGPT access with limits on frontier models and advanced features.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.openai.com/v1
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.openai.com/v1
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: ChatGPT API
-      - name: OpenAI Responses API
-      - name: OpenAI Embeddings API
-      - name: OpenAI Images API
-      - name: OpenAI Audio API
-      - name: OpenAI Moderations API
-      - name: OpenAI Fine-Tuning API
-      - name: OpenAI Files API
-  - id: chatgpt-pro
-    name: Professional
-    type: paid
-    description: Production tier for ChatGPT. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.openai.com/v1
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.openai.com/v1
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
+      - label: Monthly subscription
+        name: subscription
+        type: subscription
+        metric: seat
         limit: -1
         timeFrame: month
         geo: global
-        domains:
-          - https://api.openai.com/v1
-        unit: 1000
-        price: TBD
-        userMultiplied: false
+        unit: 1
+        price: '0.00'
+        userMultiplied: true
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: ChatGPT API
-      - name: OpenAI Responses API
-      - name: OpenAI Embeddings API
-      - name: OpenAI Images API
-      - name: OpenAI Audio API
-      - name: OpenAI Moderations API
-      - name: OpenAI Fine-Tuning API
-      - name: OpenAI Files API
-      - name: OpenAI Batch API
-      - name: OpenAI Uploads API
-      - name: OpenAI Vector Stores API
-      - name: OpenAI Realtime API
-      - name: OpenAI Models API
+      - name: Access to GPT-4o-class models with usage caps
+      - name: Limited file uploads, advanced data analysis, image generation
+      - name: Standard voice mode
+  - id: chatgpt-plus
+    name: Plus
+    type: subscription
+    description: Consumer paid tier; expanded access to frontier models and tools.
+    entries:
+      - label: Monthly subscription
+        name: subscription
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '20.00'
+        userMultiplied: true
+    elements:
+      - name: Higher usage limits on GPT-4o, GPT-4.1 / o-series
+      - name: Advanced Voice Mode
+      - name: DALL-E image generation
+      - name: Custom GPTs and Sora preview where available
+  - id: chatgpt-pro
+    name: Pro
+    type: subscription
+    description: Power-user tier with near-unlimited access to frontier reasoning models.
+    entries:
+      - label: Monthly subscription
+        name: subscription
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '200.00'
+        userMultiplied: true
+    elements:
+      - name: Pro mode for advanced reasoning models
+      - name: Highest usage limits across GPT and o-series models
+      - name: Expanded Sora video generation
+  - id: chatgpt-team
+    name: Team
+    type: subscription
+    description: Small-business plan with admin console and shared workspace; billed per-seat with annual
+      and monthly options.
+    entries:
+      - label: Per-seat monthly (annual billing)
+        name: team_annual
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '25.00'
+        userMultiplied: true
+      - label: Per-seat monthly (monthly billing)
+        name: team_monthly
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '30.00'
+        userMultiplied: true
+    elements:
+      - name: Shared workspace and custom GPTs
+      - name: Admin console
+      - name: Data excluded from training by default
   - id: chatgpt-enterprise
     name: Enterprise
     type: enterprise
-    description: Custom-negotiated tier for ChatGPT. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+    description: Enterprise tier with SAML SSO, SOC 2, custom data retention, and unlimited high-speed
+      access. Custom pricing.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Enterprise seat
+        name: enterprise
+        type: subscription
+        metric: seat
         limit: -1
         timeFrame: month
-        geo: configurable
-        domains:
-          - https://api.openai.com/v1
+        geo: global
         unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://api.openai.com/v1
+        price: contact sales
+        userMultiplied: true
+    elements:
+      - name: SAML SSO and SCIM
+      - name: SOC 2 Type 2 compliance
+      - name: Unlimited high-speed access to frontier models
+      - name: Admin controls and audit logging
+      - name: Custom data retention
+  - id: chatgpt-edu
+    name: Edu
+    type: enterprise
+    description: ChatGPT for universities and academic institutions. Custom pricing.
+    entries:
+      - label: Edu seat
+        name: edu
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
         unit: 1
-        price: custom
+        price: contact sales
+        userMultiplied: true
+    elements:
+      - name: Enterprise security controls
+      - name: Group/role management for academic units
+  - id: chatgpt-api-platform
+    name: OpenAI Platform API
+    type: usage-based
+    description: Developer-facing per-token model APIs. Pricing varies per model and is published on
+      the OpenAI pricing page; values change frequently.
+    entries:
+      - label: Per-token model usage
+        name: tokens
+        type: metered
+        metric: token
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1000000
+        price: see https://openai.com/api/pricing
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: ChatGPT API
-      - name: OpenAI Responses API
-      - name: OpenAI Embeddings API
-      - name: OpenAI Images API
-      - name: OpenAI Audio API
-      - name: OpenAI Moderations API
-      - name: OpenAI Fine-Tuning API
-      - name: OpenAI Files API
-      - name: OpenAI Batch API
-      - name: OpenAI Uploads API
-      - name: OpenAI Vector Stores API
-      - name: OpenAI Realtime API
-      - name: OpenAI Models API
+      - name: GPT-4o / GPT-4.1 family
+      - name: o-series reasoning models
+      - name: Embeddings and moderation models
+      - name: Image, audio, and fine-tuning models
 maintainers:
-  - name: Kin Lane
+  - FN: Kin Lane
     email: kin@apievangelist.com
-    url: https://apievangelist.com
-  - name: OpenAI
-    email: support@openai.com
-    url: https://openai.com

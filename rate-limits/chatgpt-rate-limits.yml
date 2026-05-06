@@ -4,155 +4,69 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: ChatGPT
 providerId: chatgpt
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Agents
-  - AI
-  - ChatGPT
-  - Embeddings
-  - Fine-Tuning
-  - GPT-4
-  - GPT-5
-  - Language Model
-  - OpenAI
-  - Realtime
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the ChatGPT API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+  - Artificial Intelligence
+  - LLM
+description: ChatGPT consumer/business tiers throttle frontier-model usage via "messages per N hours"
+  caps which OpenAI documents on the pricing/help center pages and may adjust dynamically. The OpenAI
+  Platform API enforces per-organization tier-based limits across requests-per-minute (RPM), tokens-per-minute
+  (TPM), and tokens-per-day (TPD); customers progress through usage tiers (Free, Tier 1-5) as cumulative
+  spend grows. Limits vary per model.
+sources:
+  - https://platform.openai.com/docs/guides/rate-limits
+  - https://platform.openai.com/account/limits
+  - https://help.openai.com/en/articles/8983778-what-are-the-rate-limits-of-chatgpt
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  remaining: x-ratelimit-remaining-requests
+  remainingTokens: x-ratelimit-remaining-tokens
+  resetRequests: x-ratelimit-reset-requests
+  resetTokens: x-ratelimit-reset-tokens
+  limit: x-ratelimit-limit-requests
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
+  unauthorized: 401
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
+  - name: ChatGPT Free (frontier model messages)
+    scope: account
+    metric: messages
+    limit: see help center; rolling-window cap on GPT-4o-class messages
+  - name: ChatGPT Plus / Pro (frontier model messages)
+    scope: account
+    metric: messages
+    limit: see help center; higher caps for Plus, near-unlimited for Pro
+  - name: Platform API - Free tier
+    scope: organization
+    metric: tokens_per_minute
+    limit: see https://platform.openai.com/account/limits
+  - name: Platform API - Tier 1 to Tier 5
+    scope: organization/model
     metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - ChatGPT API
-      - OpenAI Responses API
-      - OpenAI Embeddings API
-      - OpenAI Images API
-      - OpenAI Audio API
-      - OpenAI Moderations API
-      - OpenAI Fine-Tuning API
-      - OpenAI Files API
-      - OpenAI Batch API
-      - OpenAI Uploads API
-      - OpenAI Vector Stores API
-      - OpenAI Realtime API
-      - OpenAI Models API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - ChatGPT API
-      - OpenAI Responses API
-      - OpenAI Embeddings API
-      - OpenAI Images API
-      - OpenAI Audio API
-      - OpenAI Moderations API
-      - OpenAI Fine-Tuning API
-      - OpenAI Files API
-      - OpenAI Batch API
-      - OpenAI Uploads API
-      - OpenAI Vector Stores API
-      - OpenAI Realtime API
-      - OpenAI Models API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - ChatGPT API
-      - OpenAI Responses API
-      - OpenAI Embeddings API
-      - OpenAI Images API
-      - OpenAI Audio API
-      - OpenAI Moderations API
-      - OpenAI Fine-Tuning API
-      - OpenAI Files API
-      - OpenAI Batch API
-      - OpenAI Uploads API
-      - OpenAI Vector Stores API
-      - OpenAI Realtime API
-      - OpenAI Models API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - ChatGPT API
-      - OpenAI Responses API
-      - OpenAI Embeddings API
-      - OpenAI Images API
-      - OpenAI Audio API
-      - OpenAI Moderations API
-      - OpenAI Fine-Tuning API
-      - OpenAI Files API
-      - OpenAI Batch API
-      - OpenAI Uploads API
-      - OpenAI Vector Stores API
-      - OpenAI Realtime API
-      - OpenAI Models API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - ChatGPT API
-      - OpenAI Responses API
-      - OpenAI Embeddings API
-      - OpenAI Images API
-      - OpenAI Audio API
-      - OpenAI Moderations API
-      - OpenAI Fine-Tuning API
-      - OpenAI Files API
-      - OpenAI Batch API
-      - OpenAI Uploads API
-      - OpenAI Vector Stores API
-      - OpenAI Realtime API
-      - OpenAI Models API
+    limit: see https://platform.openai.com/account/limits
+  - name: Platform API - Tier 1 to Tier 5
+    scope: organization/model
+    metric: tokens_per_minute
+    limit: see https://platform.openai.com/account/limits
+  - name: Platform API - daily token cap
+    scope: organization/model
+    metric: tokens_per_day
+    limit: see https://platform.openai.com/account/limits
 policies:
+  - name: Tier progression
+    description: API usage tiers (Free, 1-5) auto-promote based on payment history and cumulative spend;
+      higher tiers carry significantly higher RPM/TPM ceilings.
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: Use exponential backoff on 429 and honor x-ratelimit-reset-* hints. The OpenAI client
+      libraries implement automatic retries with jitter.
+  - name: Per-model limits
+    description: RPM/TPM caps are enforced per model; using a higher-cost reasoning model consumes a
+      different bucket than GPT-4o.
+  - name: Batch API
+    description: The /v1/batches endpoint provides a 24-hour async path with much higher token quotas
+      and ~50% discount for non-time-sensitive workloads.
 maintainers:
-  - name: Kin Lane
+  - FN: Kin Lane
     email: kin@apievangelist.com
-    url: https://apievangelist.com
-  - name: OpenAI
-    email: support@openai.com
-    url: https://openai.com
