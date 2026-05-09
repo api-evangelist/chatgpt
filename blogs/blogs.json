@@ -3,11 +3,11 @@
   "feeds": [
     {
       "source": "https://openai.com/blog",
-      "feed_url": "https://openai.com/news/rss.xml",
-      "saved": 10,
-      "title": "OpenAI News"
+      "feed_url": "https://openai.com/blog/rss.xml",
+      "title": "OpenAI News",
+      "saved": 19
     }
   ],
-  "post_count": 10,
-  "fetched": "2026-05-03T23:25:11Z"
+  "post_count": 29,
+  "fetched": "2026-05-09T20:17:51Z"
 }
