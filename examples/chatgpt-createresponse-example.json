@@ -1,0 +1,170 @@
+{
+  "operationId": "createResponse",
+  "method": "POST",
+  "path": "/responses",
+  "summary": "Chatgpt Create Response",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "BasicTextInput",
+      "example": {
+        "model": "gpt-4o",
+        "input": "Tell me a three sentence bedtime story about a unicorn."
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "WithSystemInstructions",
+      "example": {
+        "model": "gpt-4o",
+        "instructions": "You are a helpful coding assistant.",
+        "input": [
+          {
+            "role": "user",
+            "content": "How do I sort a list in Python?"
+          }
+        ]
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "WithWebSearch",
+      "example": {
+        "model": "gpt-4o",
+        "tools": [
+          {
+            "type": "web_search_preview"
+          }
+        ],
+        "input": "What was the score of the latest Super Bowl?"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "WithFunctionTool",
+      "example": {
+        "model": "gpt-4o",
+        "tools": [
+          {
+            "type": "function",
+            "name": "get_weather",
+            "description": "Get the current weather for a location",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "location": {
+                  "type": "string",
+                  "description": "The city and state"
+                }
+              },
+              "required": [
+                "location"
+              ]
+            }
+          }
+        ],
+        "input": "What is the weather in San Francisco?"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "MultiTurn",
+      "example": {
+        "model": "gpt-4o",
+        "previous_response_id": "resp_abc123",
+        "input": [
+          {
+            "role": "user",
+            "content": "Tell me more about that."
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "BasicResponse",
+      "example": {
+        "id": "resp_abc123def456",
+        "object": "response",
+        "created_at": 1709123456,
+        "model": "gpt-4o-2024-08-06",
+        "status": "completed",
+        "output": [
+          {
+            "type": "message",
+            "id": "msg_abc123",
+            "role": "assistant",
+            "status": "completed",
+            "content": [
+              {
+                "type": "output_text",
+                "text": "Once upon a time, a sparkly unicorn named Luna danced across rainbow bridges every night. She sprinkled stardust on sleeping children to give them the sweetest dreams. And every morning, she returned to her cloud castle to rest until the next magical evening.",
+                "annotations": []
+              }
+            ]
+          }
+        ],
+        "usage": {
+          "input_tokens": 36,
+          "output_tokens": 52,
+          "total_tokens": 88
+        }
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Createresponse400Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "param": "example_value",
+          "code": "example_value"
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Createresponse401Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "param": "example_value",
+          "code": "example_value"
+        }
+      }
+    },
+    {
+      "status": "429",
+      "contentType": "application/json",
+      "name": "Createresponse429Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "param": "example_value",
+          "code": "example_value"
+        }
+      }
+    },
+    {
+      "status": "500",
+      "contentType": "application/json",
+      "name": "Createresponse500Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "param": "example_value",
+          "code": "example_value"
+        }
+      }
+    }
+  ]
+}

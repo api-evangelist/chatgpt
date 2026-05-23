@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletionChoice",
+  "title": "ChatCompletionChoice",
+  "type": "object",
+  "required": [
+    "index",
+    "message",
+    "finish_reason"
+  ],
+  "properties": {
+    "index": {
+      "type": "integer",
+      "description": "The index of the choice in the list.",
+      "example": 10
+    },
+    "message": {
+      "$ref": "#/components/schemas/ChatCompletionAssistantMessage"
+    },
+    "finish_reason": {
+      "type": "string",
+      "description": "The reason the model stopped generating tokens. stop means\nthe model hit a natural stop point or a provided stop\nsequence. length means the maximum token limit was reached.\ntool_calls means the model called a tool. content_filter\nmeans content was omitted due to a flag from content filters.\n",
+      "enum": [
+        "stop",
+        "length",
+        "tool_calls",
+        "content_filter"
+      ],
+      "nullable": true,
+      "example": "stop"
+    },
+    "logprobs": {
+      "type": "object",
+      "description": "Log probability information for the choice.",
+      "nullable": true,
+      "properties": {
+        "content": {
+          "type": "array",
+          "description": "A list of message content tokens with log probability\ninformation.\n",
+          "nullable": true,
+          "items": {
+            "$ref": "#/components/schemas/TokenLogprob"
+          }
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ResponseUsage",
+  "title": "ResponseUsage",
+  "type": "object",
+  "required": [
+    "input_tokens",
+    "output_tokens",
+    "total_tokens"
+  ],
+  "properties": {
+    "input_tokens": {
+      "type": "integer",
+      "description": "The number of input tokens used.",
+      "example": 10
+    },
+    "input_tokens_details": {
+      "type": "object",
+      "description": "A detailed breakdown of input token usage.",
+      "properties": {
+        "cached_tokens": {
+          "type": "integer",
+          "description": "The number of cached input tokens."
+        }
+      },
+      "example": "example_value"
+    },
+    "output_tokens": {
+      "type": "integer",
+      "description": "The number of output tokens generated.",
+      "example": 10
+    },
+    "output_tokens_details": {
+      "type": "object",
+      "description": "A detailed breakdown of output token usage.",
+      "properties": {
+        "reasoning_tokens": {
+          "type": "integer",
+          "description": "The number of reasoning tokens generated."
+        }
+      },
+      "example": "example_value"
+    },
+    "total_tokens": {
+      "type": "integer",
+      "description": "The total number of tokens used.",
+      "example": 10
+    }
+  }
+}

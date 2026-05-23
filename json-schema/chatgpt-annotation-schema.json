@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Annotation",
+  "title": "Annotation",
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of annotation.",
+      "enum": [
+        "url_citation",
+        "file_citation",
+        "file_path"
+      ],
+      "example": "url_citation"
+    },
+    "start_index": {
+      "type": "integer",
+      "description": "The start index of the annotation in the text.",
+      "example": 10
+    },
+    "end_index": {
+      "type": "integer",
+      "description": "The end index of the annotation in the text.",
+      "example": 10
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL cited. Present for url_citation type.",
+      "example": "https://www.example.com"
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the cited resource.",
+      "example": "Example Title"
+    },
+    "file_id": {
+      "type": "string",
+      "description": "The ID of the cited file. Present for file_citation and\nfile_path types.\n",
+      "example": "500123"
+    },
+    "quote": {
+      "type": "string",
+      "description": "The relevant quote from the file.",
+      "example": "example_value"
+    }
+  }
+}

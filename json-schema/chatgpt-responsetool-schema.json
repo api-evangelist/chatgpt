@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ResponseTool",
+  "title": "ResponseTool",
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of the tool.",
+      "enum": [
+        "function",
+        "web_search_preview",
+        "file_search",
+        "code_interpreter",
+        "computer_use_preview",
+        "mcp",
+        "image_generation"
+      ],
+      "example": "function"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the function. Required for function type tools.\n",
+      "example": "Example Title"
+    },
+    "description": {
+      "type": "string",
+      "description": "A description of what the function does.",
+      "example": "A sample description."
+    },
+    "parameters": {
+      "type": "object",
+      "description": "The parameters the function accepts, described as a JSON\nSchema object. Required for function type tools.\n",
+      "example": "example_value"
+    },
+    "strict": {
+      "type": "boolean",
+      "description": "Whether strict schema adherence is enabled for function tools.\n",
+      "default": false,
+      "example": true
+    },
+    "vector_store_ids": {
+      "type": "array",
+      "description": "The IDs of the vector stores to search. Required for\nfile_search type tools.\n",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "max_num_results": {
+      "type": "integer",
+      "description": "The maximum number of results to return from file search.\n",
+      "minimum": 1,
+      "maximum": 50,
+      "default": 20,
+      "example": 10
+    },
+    "ranking_options": {
+      "type": "object",
+      "description": "Ranking options for file search results.",
+      "properties": {
+        "ranker": {
+          "type": "string",
+          "description": "The ranker to use.",
+          "enum": [
+            "auto",
+            "default_2024_11_15"
+          ]
+        },
+        "score_threshold": {
+          "type": "number",
+          "description": "The minimum relevance score for results.\n",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "example": "example_value"
+    },
+    "container": {
+      "type": "object",
+      "description": "The container for the code interpreter tool. Specifies\nthe sandbox environment.\n",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The container type."
+        },
+        "file_ids": {
+          "type": "array",
+          "description": "IDs of files available in the container.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "example": "example_value"
+    },
+    "display_width": {
+      "type": "integer",
+      "description": "The width of the computer display in pixels. Required\nfor computer_use_preview type.\n",
+      "example": 10
+    },
+    "display_height": {
+      "type": "integer",
+      "description": "The height of the computer display in pixels. Required\nfor computer_use_preview type.\n",
+      "example": 10
+    },
+    "environment": {
+      "type": "string",
+      "description": "The environment of the computer. Required for\ncomputer_use_preview type.\n",
+      "enum": [
+        "browser",
+        "mac",
+        "windows",
+        "linux"
+      ],
+      "example": "browser"
+    },
+    "server_label": {
+      "type": "string",
+      "description": "A label for the MCP server. Required for mcp type tools.\n",
+      "example": "example_value"
+    },
+    "server_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL of the MCP server. Required for mcp type tools.\n",
+      "example": "https://www.example.com"
+    },
+    "allowed_tools": {
+      "type": "array",
+      "description": "The list of allowed tool names from the MCP server.\n",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "headers": {
+      "type": "object",
+      "description": "Headers to pass to the MCP server for authentication.\n",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": "example_value"
+    }
+  }
+}

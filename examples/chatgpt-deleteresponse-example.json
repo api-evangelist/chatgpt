@@ -1,0 +1,32 @@
+{
+  "operationId": "deleteResponse",
+  "method": "DELETE",
+  "path": "/responses/{response_id}",
+  "summary": "Chatgpt Delete Response",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Deleteresponse200Example",
+      "example": {
+        "id": "abc123",
+        "object": "response.deleted",
+        "deleted": true
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Deleteresponse404Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "param": "example_value",
+          "code": "example_value"
+        }
+      }
+    }
+  ]
+}

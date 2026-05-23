@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TokenLogprob",
+  "title": "TokenLogprob",
+  "type": "object",
+  "required": [
+    "token",
+    "logprob",
+    "bytes"
+  ],
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "The token.",
+      "example": "example_value"
+    },
+    "logprob": {
+      "type": "number",
+      "description": "The log probability of this token.",
+      "example": 42.5
+    },
+    "bytes": {
+      "type": "array",
+      "description": "A list of integers representing the UTF-8 bytes\nrepresentation of the token.\n",
+      "nullable": true,
+      "items": {
+        "type": "integer"
+      },
+      "example": []
+    },
+    "top_logprobs": {
+      "type": "array",
+      "description": "List of the most likely tokens and their log probability.\n",
+      "items": {
+        "type": "object",
+        "required": [
+          "token",
+          "logprob",
+          "bytes"
+        ],
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "logprob": {
+            "type": "number"
+          },
+          "bytes": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

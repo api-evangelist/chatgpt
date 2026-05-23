@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ErrorResponse",
+  "title": "ErrorResponse",
+  "type": "object",
+  "required": [
+    "error"
+  ],
+  "properties": {
+    "error": {
+      "type": "object",
+      "required": [
+        "message",
+        "type"
+      ],
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "A human-readable error message."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of error."
+        },
+        "param": {
+          "type": "string",
+          "description": "The parameter that caused the error.",
+          "nullable": true
+        },
+        "code": {
+          "type": "string",
+          "description": "The error code.",
+          "nullable": true
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

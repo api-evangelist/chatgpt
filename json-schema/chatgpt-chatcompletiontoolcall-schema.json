@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletionToolCall",
+  "title": "ChatCompletionToolCall",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "function"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The ID of the tool call.",
+      "example": "abc123"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of the tool call.",
+      "enum": [
+        "function"
+      ],
+      "example": "function"
+    },
+    "function": {
+      "type": "object",
+      "required": [
+        "name",
+        "arguments"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the function to call."
+        },
+        "arguments": {
+          "type": "string",
+          "description": "The arguments to call the function with, as generated\nby the model in JSON format.\n"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

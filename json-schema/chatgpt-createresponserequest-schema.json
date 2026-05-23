@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateResponseRequest",
+  "title": "CreateResponseRequest",
+  "type": "object",
+  "required": [
+    "model",
+    "input"
+  ],
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "Model ID used to generate the response, like gpt-4o or o3.\nOpenAI offers a wide range of models with different capabilities,\nperformance characteristics, and price points.\n",
+      "examples": [
+        "gpt-4o",
+        "gpt-4o-mini",
+        "o1",
+        "o3",
+        "o3-mini",
+        "gpt-4.1",
+        "gpt-4.1-mini",
+        "gpt-4.1-nano"
+      ]
+    },
+    "input": {
+      "description": "Text, image, or file inputs to the model, used to generate\na response. Can be a string for simple text input, or an\narray of input items for multi-turn and multimodal inputs.\n",
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "A text input to the model."
+        },
+        {
+          "type": "array",
+          "description": "A list of input items to the model.",
+          "items": {
+            "$ref": "#/components/schemas/ResponseInputItem"
+          }
+        }
+      ],
+      "example": "example_value"
+    },
+    "instructions": {
+      "type": "string",
+      "description": "A system (or developer) message inserted at the beginning\nof the model's context. Use this for top-level guidance\non the model's behavior, tone, or constraints.\n",
+      "nullable": true,
+      "example": "example_value"
+    },
+    "previous_response_id": {
+      "type": "string",
+      "description": "The unique ID of the previous response to the model. Use\nthis to create multi-turn conversations. The model will\nuse the previous response as context.\n",
+      "nullable": true,
+      "example": "500123"
+    },
+    "max_output_tokens": {
+      "type": "integer",
+      "description": "An upper bound for the number of tokens that can be generated\nfor a response, including visible output tokens and reasoning\ntokens.\n",
+      "nullable": true,
+      "example": 10
+    },
+    "temperature": {
+      "type": "number",
+      "description": "What sampling temperature to use, between 0 and 2. Higher\nvalues like 0.8 make the output more random, while lower\nvalues like 0.2 make it more focused and deterministic.\n",
+      "minimum": 0,
+      "maximum": 2,
+      "default": 1,
+      "example": 42.5
+    },
+    "top_p": {
+      "type": "number",
+      "description": "An alternative to sampling with temperature, called nucleus\nsampling, where the model considers the results of the\ntokens with top_p probability mass.\n",
+      "minimum": 0,
+      "maximum": 1,
+      "default": 1,
+      "example": 42.5
+    },
+    "tools": {
+      "type": "array",
+      "description": "An array of tools the model may use to generate a response.\nSupports built-in tools (web_search_preview, file_search,\ncode_interpreter, computer_use_preview) and custom function\ntools.\n",
+      "items": {
+        "$ref": "#/components/schemas/ResponseTool"
+      },
+      "example": []
+    },
+    "tool_choice": {
+      "description": "How the model should select which tool to use. auto allows\nthe model to decide, required forces the model to use a\ntool, none disables tool use.\n",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "auto",
+            "required",
+            "none"
+          ]
+        },
+        {
+          "$ref": "#/components/schemas/ResponseToolChoice"
+        }
+      ],
+      "example": "example_value"
+    },
+    "truncation": {
+      "type": "string",
+      "description": "The truncation strategy to use for the model context. auto\nwill use the model-defined default truncation strategy.\ndisabled will error if the context exceeds the model's\ncontext window.\n",
+      "enum": [
+        "auto",
+        "disabled"
+      ],
+      "default": "disabled",
+      "nullable": true,
+      "example": "auto"
+    },
+    "text": {
+      "type": "object",
+      "description": "Configuration for text response format.",
+      "properties": {
+        "format": {
+          "type": "object",
+          "description": "An object specifying the format of the response text.\n",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "The format type.",
+              "enum": [
+                "text",
+                "json_object",
+                "json_schema"
+              ]
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the response format. Required when type\nis json_schema.\n"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the response format."
+            },
+            "schema": {
+              "type": "object",
+              "description": "The JSON schema for the response. Required when type\nis json_schema.\n"
+            },
+            "strict": {
+              "type": "boolean",
+              "description": "Whether strict schema adherence is enabled."
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    },
+    "reasoning": {
+      "type": "object",
+      "description": "Configuration for reasoning models (o-series). Controls\nhow much reasoning effort the model uses.\n",
+      "nullable": true,
+      "properties": {
+        "effort": {
+          "type": "string",
+          "description": "Constrains effort on reasoning for reasoning models.\n",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "default": "medium"
+        },
+        "summary": {
+          "type": "string",
+          "description": "A summary of the reasoning performed by the model.\nCan be useful for debugging or understanding model\nbehavior. Supported values are auto, concise, and\ndetailed.\n",
+          "enum": [
+            "auto",
+            "concise",
+            "detailed"
+          ],
+          "nullable": true
+        }
+      },
+      "example": "example_value"
+    },
+    "store": {
+      "type": "boolean",
+      "description": "Whether to store the generated response for later retrieval\nvia the GET /responses endpoint. Defaults to true.\n",
+      "default": true,
+      "example": true
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Set of 16 key-value pairs that can be attached to an object.\nUseful for storing additional information in a structured format.\n",
+      "nullable": true,
+      "additionalProperties": {
+        "type": "string"
+      },
+      "maxProperties": 16,
+      "example": "example_value"
+    },
+    "stream": {
+      "type": "boolean",
+      "description": "If set to true, the model response data will be streamed\nas server-sent events to the client.\n",
+      "default": false,
+      "example": true
+    },
+    "parallel_tool_calls": {
+      "type": "boolean",
+      "description": "Whether to allow the model to run tool calls in parallel.",
+      "default": true,
+      "example": true
+    },
+    "user": {
+      "type": "string",
+      "description": "A unique identifier representing your end-user, which can\nhelp OpenAI to monitor and detect abuse.\n",
+      "example": "example_value"
+    }
+  }
+}

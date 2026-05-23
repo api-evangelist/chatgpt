@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletionTool",
+  "title": "ChatCompletionTool",
+  "type": "object",
+  "required": [
+    "type",
+    "function"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of the tool.",
+      "enum": [
+        "function"
+      ],
+      "example": "function"
+    },
+    "function": {
+      "$ref": "#/components/schemas/FunctionDefinition"
+    }
+  }
+}

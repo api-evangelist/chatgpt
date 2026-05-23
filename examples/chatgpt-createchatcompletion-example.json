@@ -1,0 +1,156 @@
+{
+  "operationId": "createChatCompletion",
+  "method": "POST",
+  "path": "/chat/completions",
+  "summary": "Chatgpt Create Chat Completion",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "BasicCompletion",
+      "example": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a helpful assistant."
+          },
+          {
+            "role": "user",
+            "content": "Hello!"
+          }
+        ]
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "WithTemperature",
+      "example": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Write a haiku about programming."
+          }
+        ],
+        "temperature": 0.7,
+        "max_completion_tokens": 150
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "WithToolCalling",
+      "example": {
+        "model": "gpt-4o",
+        "messages": [
+          {
+            "role": "user",
+            "content": "What is the weather in San Francisco?"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_weather",
+              "description": "Get the current weather in a given location",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "location": {
+                    "type": "string",
+                    "description": "The city and state"
+                  }
+                },
+                "required": [
+                  "location"
+                ]
+              }
+            }
+          }
+        ],
+        "tool_choice": "auto"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "BasicResponse",
+      "example": {
+        "id": "chatcmpl-abc123",
+        "object": "chat.completion",
+        "created": 1709123456,
+        "model": "gpt-4o-2024-08-06",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "Hello! How can I help you today?"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 19,
+          "completion_tokens": 10,
+          "total_tokens": 29
+        },
+        "system_fingerprint": "fp_abc123"
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Createchatcompletion400Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "param": "example_value",
+          "code": "example_value"
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Createchatcompletion401Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "param": "example_value",
+          "code": "example_value"
+        }
+      }
+    },
+    {
+      "status": "429",
+      "contentType": "application/json",
+      "name": "Createchatcompletion429Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "param": "example_value",
+          "code": "example_value"
+        }
+      }
+    },
+    {
+      "status": "500",
+      "contentType": "application/json",
+      "name": "Createchatcompletion500Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "param": "example_value",
+          "code": "example_value"
+        }
+      }
+    }
+  ]
+}

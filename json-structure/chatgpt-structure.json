@@ -1,0 +1,154 @@
+{
+  "provider": "ChatGPT",
+  "providerId": "chatgpt",
+  "kind": "json-structure",
+  "description": "Structural overview of the ChatGPT API surface; extracted from openapi/.",
+  "schemaCount": 12,
+  "operationCount": 4,
+  "schemas": [
+    {
+      "name": "CreateResponseRequest",
+      "type": "object",
+      "propertyCount": 17,
+      "required": [
+        "model",
+        "input"
+      ]
+    },
+    {
+      "name": "ResponseInputItem",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "role"
+      ]
+    },
+    {
+      "name": "ResponseInputContentPart",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "name": "ResponseTool",
+      "type": "object",
+      "propertyCount": 16,
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "name": "ResponseToolChoice",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "name": "ResponseObject",
+      "type": "object",
+      "propertyCount": 22,
+      "required": [
+        "id",
+        "object",
+        "created_at",
+        "model",
+        "status",
+        "output",
+        "usage"
+      ]
+    },
+    {
+      "name": "ResponseOutputItem",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "name": "ResponseOutputContentPart",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "name": "Annotation",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "name": "ResponseUsage",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "input_tokens",
+        "output_tokens",
+        "total_tokens"
+      ]
+    },
+    {
+      "name": "ResponseInputItemList",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "object",
+        "data"
+      ]
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "error"
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/responses",
+      "operationId": "createResponse",
+      "summary": "Chatgpt Create Response",
+      "tags": [
+        "Responses"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/responses/{response_id}",
+      "operationId": "getResponse",
+      "summary": "Chatgpt Retrieve Response",
+      "tags": [
+        "Responses"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/responses/{response_id}",
+      "operationId": "deleteResponse",
+      "summary": "Chatgpt Delete Response",
+      "tags": [
+        "Responses"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/responses/{response_id}/input_items",
+      "operationId": "listResponseInputItems",
+      "summary": "Chatgpt List Input Items",
+      "tags": [
+        "Responses"
+      ]
+    }
+  ]
+}

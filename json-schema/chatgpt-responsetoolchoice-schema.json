@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ResponseToolChoice",
+  "title": "ResponseToolChoice",
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of tool to force.",
+      "enum": [
+        "function",
+        "file_search",
+        "web_search_preview",
+        "computer_use_preview",
+        "code_interpreter"
+      ],
+      "example": "function"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the function to call. Required when type\nis function.\n",
+      "example": "Example Title"
+    }
+  }
+}

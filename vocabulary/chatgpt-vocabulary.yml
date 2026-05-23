@@ -1,0 +1,7 @@
+name: ChatGPT Domain Vocabulary
+provider: ChatGPT
+providerId: chatgpt
+description: Tag-derived vocabulary for the ChatGPT API surface; sourced from openapi/ tags.
+terms:
+- term: Responses
+  description: Create, retrieve, and manage model responses

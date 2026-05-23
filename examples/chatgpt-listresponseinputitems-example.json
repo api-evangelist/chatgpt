@@ -1,0 +1,44 @@
+{
+  "operationId": "listResponseInputItems",
+  "method": "GET",
+  "path": "/responses/{response_id}/input_items",
+  "summary": "Chatgpt List Input Items",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listresponseinputitems200Example",
+      "example": {
+        "object": "list",
+        "data": [
+          {
+            "role": "user",
+            "content": "example_value",
+            "type": "message",
+            "id": "abc123",
+            "call_id": "500123",
+            "output": "example_value",
+            "status": "completed"
+          }
+        ],
+        "has_more": true,
+        "first_id": "500123",
+        "last_id": "500123"
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Listresponseinputitems404Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "param": "example_value",
+          "code": "example_value"
+        }
+      }
+    }
+  ]
+}

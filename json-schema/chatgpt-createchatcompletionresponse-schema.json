@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateChatCompletionResponse",
+  "title": "CreateChatCompletionResponse",
+  "type": "object",
+  "required": [
+    "id",
+    "object",
+    "created",
+    "model",
+    "choices"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "A unique identifier for the chat completion.",
+      "example": "abc123"
+    },
+    "object": {
+      "type": "string",
+      "description": "The object type, always chat.completion.",
+      "enum": [
+        "chat.completion"
+      ],
+      "example": "chat.completion"
+    },
+    "created": {
+      "type": "integer",
+      "description": "The Unix timestamp (in seconds) of when the chat completion\nwas created.\n",
+      "example": 10
+    },
+    "model": {
+      "type": "string",
+      "description": "The model used for the chat completion.",
+      "example": "example_value"
+    },
+    "choices": {
+      "type": "array",
+      "description": "A list of chat completion choices. Can be more than one\nif n is greater than 1.\n",
+      "items": {
+        "$ref": "#/components/schemas/ChatCompletionChoice"
+      },
+      "example": []
+    },
+    "usage": {
+      "$ref": "#/components/schemas/CompletionUsage"
+    },
+    "system_fingerprint": {
+      "type": "string",
+      "description": "This fingerprint represents the backend configuration that\nthe model runs with. Can be used with the seed parameter\nto understand when backend changes have been made.\n",
+      "nullable": true,
+      "example": "example_value"
+    },
+    "service_tier": {
+      "type": "string",
+      "description": "The service tier used for processing the request.",
+      "nullable": true,
+      "example": "example_value"
+    }
+  }
+}

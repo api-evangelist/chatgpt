@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ResponseFormat",
+  "title": "ResponseFormat",
+  "type": "object",
+  "description": "An object specifying the format that the model must output.\nSetting to json_schema enables Structured Outputs which ensures\nthe model will match your supplied JSON schema.\n",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of response format.",
+      "enum": [
+        "text",
+        "json_object",
+        "json_schema"
+      ],
+      "example": "text"
+    },
+    "json_schema": {
+      "type": "object",
+      "description": "The JSON schema the model must conform to. Required when\ntype is json_schema.\n",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the response format."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the response format."
+        },
+        "schema": {
+          "type": "object",
+          "description": "The JSON schema object."
+        },
+        "strict": {
+          "type": "boolean",
+          "description": "Whether strict schema adherence is enabled.",
+          "default": false
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}
