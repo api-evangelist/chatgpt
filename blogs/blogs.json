@@ -2,12 +2,20 @@
   "repo": "chatgpt",
   "feeds": [
     {
-      "source": "https://openai.com/blog",
+      "source": "https://openai.com/blog/rss.xml",
       "feed_url": "https://openai.com/blog/rss.xml",
-      "title": "OpenAI News",
-      "saved": 21
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://platform.openai.com/docs/changelog",
+      "feed_url": "https://developers.openai.com/rss.xml",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
     }
   ],
-  "post_count": 50,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 73,
+  "fetched": "2026-06-01T23:35:02Z"
 }
