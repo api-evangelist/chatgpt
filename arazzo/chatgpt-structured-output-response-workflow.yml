@@ -1,0 +1,143 @@
+arazzo: 1.0.1
+info:
+  title: ChatGPT Structured JSON Output Response
+  summary: Generate a response constrained to a caller-supplied JSON schema.
+  description: >-
+    Uses the Responses API text.format configuration to force the model to
+    return JSON that conforms to a caller-supplied schema. The response is
+    created with strict json_schema formatting, then retrieved to extract the
+    structured output text once generation settles. The flow branches when the
+    response does not complete so callers can react to incomplete output. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: responsesApi
+  url: ../openapi/chatgpt-responses-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: structured-output-response
+  summary: Produce schema-constrained JSON from the Responses API and retrieve it.
+  description: >-
+    Creates a response with a strict json_schema text format, polls it to
+    completion, and retrieves the structured output text along with token
+    usage.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - model
+    - input
+    - schemaName
+    - jsonSchema
+    properties:
+      apiKey:
+        type: string
+        description: OpenAI API key used as the Bearer credential.
+      model:
+        type: string
+        description: Model ID used to generate the response (e.g. gpt-4o).
+      input:
+        type: string
+        description: The prompt describing the data to extract or generate.
+      schemaName:
+        type: string
+        description: The name of the JSON schema response format.
+      jsonSchema:
+        type: object
+        description: The JSON schema the output must conform to.
+  steps:
+  - stepId: createStructured
+    description: >-
+      Create a stored response that constrains the output to the supplied JSON
+      schema using strict formatting.
+    operationId: createResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.model
+        input: $inputs.input
+        text:
+          format:
+            type: json_schema
+            name: $inputs.schemaName
+            schema: $inputs.jsonSchema
+            strict: true
+        store: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      responseId: $response.body#/id
+      status: $response.body#/status
+    onSuccess:
+    - name: needsPolling
+      type: goto
+      stepId: pollStructured
+      criteria:
+      - context: $response.body
+        condition: $.status == "in_progress"
+        type: jsonpath
+    - name: alreadyDone
+      type: goto
+      stepId: retrieveStructured
+      criteria:
+      - context: $response.body
+        condition: $.status == "completed"
+        type: jsonpath
+  - stepId: pollStructured
+    description: >-
+      Poll the response until it leaves the in_progress status.
+    operationId: getResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: response_id
+      in: path
+      value: $steps.createStructured.outputs.responseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: keepPolling
+      type: goto
+      stepId: pollStructured
+      criteria:
+      - context: $response.body
+        condition: $.status == "in_progress"
+        type: jsonpath
+    - name: settled
+      type: goto
+      stepId: retrieveStructured
+      criteria:
+      - context: $response.body
+        condition: $.status != "in_progress"
+        type: jsonpath
+  - stepId: retrieveStructured
+    description: >-
+      Retrieve the settled response and extract the structured JSON output
+      text and token usage.
+    operationId: getResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: response_id
+      in: path
+      value: $steps.createStructured.outputs.responseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalStatus: $response.body#/status
+      structuredText: $response.body#/output/0/content/0/text
+      totalTokens: $response.body#/usage/total_tokens
+  outputs:
+    responseId: $steps.createStructured.outputs.responseId
+    structuredText: $steps.retrieveStructured.outputs.structuredText
+    finalStatus: $steps.retrieveStructured.outputs.finalStatus
+    totalTokens: $steps.retrieveStructured.outputs.totalTokens

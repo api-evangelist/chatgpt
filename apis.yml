@@ -312,6 +312,33 @@ maintainers:
   email: support@openai.com
   url: https://openai.com
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/chatgpt-chat-completion-tool-call-workflow.yml
+    name: ChatGPT Chat Completion With Tool Calling
+    summary: Run a chat completion offering a function tool and resolve the tool call.
+  - url: arazzo/chatgpt-create-and-poll-response-workflow.yml
+    name: ChatGPT Create and Poll a Response
+    summary: Create a stored response and poll it until generation completes.
+  - url: arazzo/chatgpt-image-input-describe-workflow.yml
+    name: ChatGPT Describe an Image Input
+    summary: Send an image URL to the Responses API and retrieve a text description.
+  - url: arazzo/chatgpt-moderation-gate-generate-workflow.yml
+    name: ChatGPT Moderation Gate Before Generation
+    summary: Classify input safety with a chat completion, then generate only if it is safe.
+  - url: arazzo/chatgpt-multi-turn-conversation-workflow.yml
+    name: ChatGPT Multi-Turn Conversation
+    summary: Start a conversation and continue it by chaining previous_response_id.
+  - url: arazzo/chatgpt-response-lifecycle-cleanup-workflow.yml
+    name: ChatGPT Response Lifecycle With Cleanup
+    summary: Create a stored response, read its output, then delete it.
+  - url: arazzo/chatgpt-structured-output-response-workflow.yml
+    name: ChatGPT Structured JSON Output Response
+    summary: Generate a response constrained to a caller-supplied JSON schema.
+  - url: arazzo/chatgpt-web-search-answer-workflow.yml
+    name: ChatGPT Web Search Grounded Answer
+    summary: Answer a question with the built-in web search tool and return citations.
 - type: Portal
   url: https://platform.openai.com
 - type: Documentation

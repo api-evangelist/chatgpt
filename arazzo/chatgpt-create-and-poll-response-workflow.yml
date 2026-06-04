@@ -1,0 +1,149 @@
+arazzo: 1.0.1
+info:
+  title: ChatGPT Create and Poll a Response
+  summary: Create a stored response and poll it until generation completes.
+  description: >-
+    Submits a prompt to the OpenAI Responses API and then polls the stored
+    response by id until its status leaves the in_progress state. The flow
+    branches on the terminal status so a completed response surfaces its
+    generated text while a failed or incomplete response surfaces the error
+    or the reason the model stopped early. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: responsesApi
+  url: ../openapi/chatgpt-responses-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-and-poll-response
+  summary: Create a Responses API response and poll until it reaches a terminal status.
+  description: >-
+    Creates a stored response from a text prompt, then retrieves it by id and
+    loops while the status is in_progress. Once the response settles it routes
+    to a completed, failed, or incomplete terminal step.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - model
+    - input
+    properties:
+      apiKey:
+        type: string
+        description: OpenAI API key used as the Bearer credential.
+      model:
+        type: string
+        description: Model ID used to generate the response (e.g. gpt-4o).
+      input:
+        type: string
+        description: The text prompt to send to the model.
+      instructions:
+        type: string
+        description: Optional system-level guidance for the model.
+  steps:
+  - stepId: createResponse
+    description: >-
+      Submit the prompt to the Responses API as a stored response so it can be
+      retrieved by id while it generates.
+    operationId: createResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.model
+        input: $inputs.input
+        instructions: $inputs.instructions
+        store: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      responseId: $response.body#/id
+      status: $response.body#/status
+  - stepId: pollResponse
+    description: >-
+      Retrieve the stored response by id. Repeats while the status is still
+      in_progress and then branches on the terminal status.
+    operationId: getResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: response_id
+      in: path
+      value: $steps.createResponse.outputs.responseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      outputText: $response.body#/output/0/content/0/text
+      totalTokens: $response.body#/usage/total_tokens
+    onSuccess:
+    - name: stillRunning
+      type: goto
+      stepId: pollResponse
+      criteria:
+      - context: $response.body
+        condition: $.status == "in_progress"
+        type: jsonpath
+    - name: succeeded
+      type: goto
+      stepId: returnCompleted
+      criteria:
+      - context: $response.body
+        condition: $.status == "completed"
+        type: jsonpath
+    - name: didNotComplete
+      type: goto
+      stepId: returnIncomplete
+      criteria:
+      - context: $response.body
+        condition: $.status != "completed" && $.status != "in_progress"
+        type: jsonpath
+  - stepId: returnCompleted
+    description: >-
+      Retrieve the settled response once more to capture the final generated
+      text and token usage for a completed run.
+    operationId: getResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: response_id
+      in: path
+      value: $steps.createResponse.outputs.responseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      outputText: $response.body#/output/0/content/0/text
+      totalTokens: $response.body#/usage/total_tokens
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: returnIncomplete
+    description: >-
+      Retrieve the settled response to capture the failure error object or the
+      reason the response is incomplete.
+    operationId: getResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: response_id
+      in: path
+      value: $steps.createResponse.outputs.responseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalStatus: $response.body#/status
+      errorMessage: $response.body#/error/message
+      incompleteReason: $response.body#/incomplete_details/reason
+  outputs:
+    responseId: $steps.createResponse.outputs.responseId
+    outputText: $steps.returnCompleted.outputs.outputText
+    totalTokens: $steps.returnCompleted.outputs.totalTokens
+    failureStatus: $steps.returnIncomplete.outputs.finalStatus
+    failureReason: $steps.returnIncomplete.outputs.incompleteReason

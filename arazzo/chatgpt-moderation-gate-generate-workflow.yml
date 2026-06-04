@@ -1,0 +1,145 @@
+arazzo: 1.0.1
+info:
+  title: ChatGPT Moderation Gate Before Generation
+  summary: Classify input safety with a chat completion, then generate only if it is safe.
+  description: >-
+    The OpenAI moderations endpoint is not present in these specifications, so
+    this workflow adapts the moderate-then-generate pattern by using a Chat
+    Completions classification call as the safety gate. A first completion is
+    asked to label the user input as SAFE or UNSAFE using a constrained
+    json_object response, and the flow branches on that label: safe input is
+    forwarded to the Responses API for generation, while unsafe input is
+    rejected before any generation occurs. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: chatCompletionsApi
+  url: ../openapi/chatgpt-chat-completions-api-openapi.yml
+  type: openapi
+- name: responsesApi
+  url: ../openapi/chatgpt-responses-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: moderation-gate-generate
+  summary: Use a chat-completion safety classification to gate a Responses API generation.
+  description: >-
+    Classifies the user input as SAFE or UNSAFE with a JSON-object chat
+    completion, then branches: safe input proceeds to a Responses API
+    generation, unsafe input is rejected.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - classifierModel
+    - generationModel
+    - userInput
+    properties:
+      apiKey:
+        type: string
+        description: OpenAI API key used as the Bearer credential.
+      classifierModel:
+        type: string
+        description: Model ID used for the safety classification (e.g. gpt-4o-mini).
+      generationModel:
+        type: string
+        description: Model ID used for the downstream generation (e.g. gpt-4o).
+      userInput:
+        type: string
+        description: The user input to screen and then answer.
+  steps:
+  - stepId: classifyInput
+    description: >-
+      Ask a chat completion to classify the input as SAFE or UNSAFE, returning
+      a JSON object so the verdict can be branched on deterministically.
+    operationId: createChatCompletion
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.classifierModel
+        messages:
+        - role: system
+          content: >-
+            You are a content safety classifier. Reply only with a JSON object
+            of the form {"verdict":"SAFE"} or {"verdict":"UNSAFE"}.
+        - role: user
+          content: $inputs.userInput
+        response_format:
+          type: json_object
+        temperature: 0
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      verdictJson: $response.body#/choices/0/message/content
+      finishReason: $response.body#/choices/0/finish_reason
+    onSuccess:
+    - name: safe
+      type: goto
+      stepId: generateAnswer
+      criteria:
+      - context: $response.body#/choices/0/message/content
+        condition: ^(?=.*SAFE)(?!.*UNSAFE).*$
+        type: regex
+    - name: unsafe
+      type: goto
+      stepId: rejectInput
+      criteria:
+      - context: $response.body#/choices/0/message/content
+        condition: UNSAFE
+        type: regex
+  - stepId: generateAnswer
+    description: >-
+      Generate the answer with the Responses API now that the input has passed
+      the safety gate.
+    operationId: createResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.generationModel
+        input: $inputs.userInput
+        store: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      responseId: $response.body#/id
+      answerText: $response.body#/output/0/content/0/text
+      status: $response.body#/status
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: rejectInput
+    description: >-
+      The classifier flagged the input as unsafe, so no generation is
+      performed. This terminal step records the rejection.
+    operationId: createChatCompletion
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.classifierModel
+        messages:
+        - role: user
+          content: >-
+            Reply with a short standard refusal message stating the request
+            could not be processed due to content policy.
+        max_completion_tokens: 60
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      refusalText: $response.body#/choices/0/message/content
+  outputs:
+    verdictJson: $steps.classifyInput.outputs.verdictJson
+    answerText: $steps.generateAnswer.outputs.answerText
+    responseId: $steps.generateAnswer.outputs.responseId
+    refusalText: $steps.rejectInput.outputs.refusalText

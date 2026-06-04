@@ -1,0 +1,129 @@
+arazzo: 1.0.1
+info:
+  title: ChatGPT Web Search Grounded Answer
+  summary: Answer a question with the built-in web search tool and return citations.
+  description: >-
+    Uses the Responses API built-in web_search_preview tool to answer a
+    current-events question. The response is created with the tool enabled,
+    then retrieved to extract both the generated answer text and the URL
+    citations the model attached as annotations. The flow branches when the
+    response did not complete so callers can react to a failed or incomplete
+    run. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: responsesApi
+  url: ../openapi/chatgpt-responses-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: web-search-answer
+  summary: Generate a web-search-grounded answer and surface its citations.
+  description: >-
+    Creates a response with the web_search_preview tool enabled, then
+    retrieves the response with file/web search results included to extract
+    the answer text and the first annotation citation.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - model
+    - question
+    properties:
+      apiKey:
+        type: string
+        description: OpenAI API key used as the Bearer credential.
+      model:
+        type: string
+        description: Model ID used to generate the response (e.g. gpt-4o).
+      question:
+        type: string
+        description: The current-events question to answer.
+  steps:
+  - stepId: createSearchResponse
+    description: >-
+      Create a stored response with the built-in web_search_preview tool so
+      the model can ground its answer in live search results.
+    operationId: createResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.model
+        input: $inputs.question
+        tools:
+        - type: web_search_preview
+        store: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      responseId: $response.body#/id
+      status: $response.body#/status
+    onSuccess:
+    - name: completed
+      type: goto
+      stepId: retrieveAnswer
+      criteria:
+      - context: $response.body
+        condition: $.status == "completed"
+        type: jsonpath
+    - name: notDone
+      type: goto
+      stepId: pollAnswer
+      criteria:
+      - context: $response.body
+        condition: $.status != "completed"
+        type: jsonpath
+  - stepId: pollAnswer
+    description: >-
+      Poll the response while it is still generating, looping until it leaves
+      the in_progress status.
+    operationId: getResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: response_id
+      in: path
+      value: $steps.createSearchResponse.outputs.responseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: stillRunning
+      type: goto
+      stepId: pollAnswer
+      criteria:
+      - context: $response.body
+        condition: $.status == "in_progress"
+        type: jsonpath
+  - stepId: retrieveAnswer
+    description: >-
+      Retrieve the completed response with web search results included to pull
+      the answer text and the first URL citation annotation.
+    operationId: getResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: response_id
+      in: path
+      value: $steps.createSearchResponse.outputs.responseId
+    - name: include
+      in: query
+      value:
+      - file_search_call.results
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      answerText: $response.body#/output/0/content/0/text
+      citationUrl: $response.body#/output/0/content/0/annotations/0/url
+      citationTitle: $response.body#/output/0/content/0/annotations/0/title
+  outputs:
+    responseId: $steps.createSearchResponse.outputs.responseId
+    answerText: $steps.retrieveAnswer.outputs.answerText
+    citationUrl: $steps.retrieveAnswer.outputs.citationUrl
+    citationTitle: $steps.retrieveAnswer.outputs.citationTitle

@@ -1,0 +1,145 @@
+arazzo: 1.0.1
+info:
+  title: ChatGPT Describe an Image Input
+  summary: Send an image URL to the Responses API and retrieve a text description.
+  description: >-
+    The OpenAI image generation and audio endpoints are not present in these
+    specifications, so this workflow adapts the multimodal theme to what the
+    Responses API actually supports: image inputs. An input_image content part
+    carrying an image URL is sent alongside a text instruction, the response is
+    polled to completion, and the generated description text is returned. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: responsesApi
+  url: ../openapi/chatgpt-responses-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: image-input-describe
+  summary: Describe an image supplied by URL using a multimodal Responses API call.
+  description: >-
+    Creates a response from a multimodal input combining an instruction and an
+    input_image content part, polls to completion, and returns the description
+    text.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - model
+    - imageUrl
+    - instruction
+    properties:
+      apiKey:
+        type: string
+        description: OpenAI API key used as the Bearer credential.
+      model:
+        type: string
+        description: Vision-capable model ID (e.g. gpt-4o).
+      imageUrl:
+        type: string
+        description: The URL of the image to describe.
+      instruction:
+        type: string
+        description: The text instruction guiding the description.
+  steps:
+  - stepId: describeImage
+    description: >-
+      Create a stored response with a multimodal input that pairs the text
+      instruction with an input_image content part.
+    operationId: createResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.model
+        input:
+        - role: user
+          content:
+          - type: input_text
+            text: $inputs.instruction
+          - type: input_image
+            image_url: $inputs.imageUrl
+            detail: auto
+        store: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      responseId: $response.body#/id
+      status: $response.body#/status
+    onSuccess:
+    - name: needsPolling
+      type: goto
+      stepId: pollDescription
+      criteria:
+      - context: $response.body
+        condition: $.status == "in_progress"
+        type: jsonpath
+    - name: alreadyDone
+      type: goto
+      stepId: retrieveDescription
+      criteria:
+      - context: $response.body
+        condition: $.status == "completed"
+        type: jsonpath
+  - stepId: pollDescription
+    description: >-
+      Poll the response until image understanding finishes and it leaves the
+      in_progress status.
+    operationId: getResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: response_id
+      in: path
+      value: $steps.describeImage.outputs.responseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: keepPolling
+      type: goto
+      stepId: pollDescription
+      criteria:
+      - context: $response.body
+        condition: $.status == "in_progress"
+        type: jsonpath
+    - name: settled
+      type: goto
+      stepId: retrieveDescription
+      criteria:
+      - context: $response.body
+        condition: $.status != "in_progress"
+        type: jsonpath
+  - stepId: retrieveDescription
+    description: >-
+      Retrieve the settled response and extract the description text and token
+      usage, including the image URL in the returned items.
+    operationId: getResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: response_id
+      in: path
+      value: $steps.describeImage.outputs.responseId
+    - name: include
+      in: query
+      value:
+      - message.input_image.image_url
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalStatus: $response.body#/status
+      descriptionText: $response.body#/output/0/content/0/text
+      totalTokens: $response.body#/usage/total_tokens
+  outputs:
+    responseId: $steps.describeImage.outputs.responseId
+    descriptionText: $steps.retrieveDescription.outputs.descriptionText
+    finalStatus: $steps.retrieveDescription.outputs.finalStatus
+    totalTokens: $steps.retrieveDescription.outputs.totalTokens

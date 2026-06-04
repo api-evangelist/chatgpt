@@ -1,0 +1,117 @@
+arazzo: 1.0.1
+info:
+  title: ChatGPT Multi-Turn Conversation
+  summary: Start a conversation and continue it by chaining previous_response_id.
+  description: >-
+    Demonstrates the canonical Responses API multi-turn pattern. A first
+    response is created from an opening prompt, and a follow-up prompt is then
+    sent with previous_response_id set to the first response's id so the model
+    carries the prior turn as context. The conversation's input items are
+    listed afterward to confirm the chained history. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: responsesApi
+  url: ../openapi/chatgpt-responses-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: multi-turn-conversation
+  summary: Chain two Responses API turns and list the resulting input items.
+  description: >-
+    Creates an opening response, then creates a follow-up response that
+    references the first via previous_response_id, then lists the input items
+    of the follow-up to confirm the conversation history was threaded.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - model
+    - firstInput
+    - followUpInput
+    properties:
+      apiKey:
+        type: string
+        description: OpenAI API key used as the Bearer credential.
+      model:
+        type: string
+        description: Model ID used to generate the responses (e.g. gpt-4o).
+      firstInput:
+        type: string
+        description: The opening prompt for the conversation.
+      followUpInput:
+        type: string
+        description: The follow-up prompt that should reuse the prior context.
+  steps:
+  - stepId: openTurn
+    description: >-
+      Create the first stored response that opens the conversation.
+    operationId: createResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.model
+        input: $inputs.firstInput
+        store: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstResponseId: $response.body#/id
+      firstStatus: $response.body#/status
+      firstText: $response.body#/output/0/content/0/text
+  - stepId: followUpTurn
+    description: >-
+      Create the follow-up response, passing previous_response_id so the model
+      treats the opening turn as conversation context.
+    operationId: createResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.model
+        previous_response_id: $steps.openTurn.outputs.firstResponseId
+        input:
+        - role: user
+          content: $inputs.followUpInput
+        store: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      followUpResponseId: $response.body#/id
+      followUpText: $response.body#/output/0/content/0/text
+  - stepId: listHistory
+    description: >-
+      List the input items of the follow-up response to confirm the chained
+      conversation history is present.
+    operationId: listResponseInputItems
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: response_id
+      in: path
+      value: $steps.followUpTurn.outputs.followUpResponseId
+    - name: order
+      in: query
+      value: asc
+    - name: limit
+      in: query
+      value: 100
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      itemCount: $response.body#/data
+      hasMore: $response.body#/has_more
+  outputs:
+    firstResponseId: $steps.openTurn.outputs.firstResponseId
+    firstText: $steps.openTurn.outputs.firstText
+    followUpResponseId: $steps.followUpTurn.outputs.followUpResponseId
+    followUpText: $steps.followUpTurn.outputs.followUpText
+    historyHasMore: $steps.listHistory.outputs.hasMore

@@ -1,0 +1,131 @@
+arazzo: 1.0.1
+info:
+  title: ChatGPT Chat Completion With Tool Calling
+  summary: Run a chat completion offering a function tool and resolve the tool call.
+  description: >-
+    Sends a user message to the Chat Completions API along with a single
+    function tool definition. The flow branches on the choice finish_reason:
+    when the model decides to call the tool it issues a second completion that
+    feeds the simulated tool result back as a tool message to obtain the final
+    answer, and when the model answers directly it returns that answer. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: chatCompletionsApi
+  url: ../openapi/chatgpt-chat-completions-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: chat-completion-tool-call
+  summary: Offer a function tool to a chat completion and resolve the tool call loop.
+  description: >-
+    Creates a chat completion with a function tool, branches on finish_reason,
+    and when a tool call is returned sends a follow-up completion that supplies
+    the tool result so the model can produce its final response.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - model
+    - userMessage
+    - toolName
+    - toolResult
+    properties:
+      apiKey:
+        type: string
+        description: OpenAI API key used as the Bearer credential.
+      model:
+        type: string
+        description: Model ID used for the completion (e.g. gpt-4o).
+      userMessage:
+        type: string
+        description: The user message that may trigger a tool call.
+      toolName:
+        type: string
+        description: The name of the function tool offered to the model.
+      toolResult:
+        type: string
+        description: The simulated tool output fed back to the model.
+  steps:
+  - stepId: createCompletion
+    description: >-
+      Create a chat completion that offers a single function tool and lets the
+      model decide whether to call it.
+    operationId: createChatCompletion
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.model
+        messages:
+        - role: user
+          content: $inputs.userMessage
+        tools:
+        - type: function
+          function:
+            name: $inputs.toolName
+            description: A tool the model may call to satisfy the request.
+            parameters:
+              type: object
+              properties:
+                query:
+                  type: string
+              required:
+              - query
+        tool_choice: auto
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      completionId: $response.body#/id
+      finishReason: $response.body#/choices/0/finish_reason
+      toolCallId: $response.body#/choices/0/message/tool_calls/0/id
+      toolCallArgs: $response.body#/choices/0/message/tool_calls/0/function/arguments
+      directContent: $response.body#/choices/0/message/content
+    onSuccess:
+    - name: modelCalledTool
+      type: goto
+      stepId: resolveToolCall
+      criteria:
+      - context: $response.body
+        condition: $.choices[0].finish_reason == "tool_calls"
+        type: jsonpath
+    - name: modelAnsweredDirectly
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.choices[0].finish_reason == "stop"
+        type: jsonpath
+  - stepId: resolveToolCall
+    description: >-
+      Send a follow-up completion that replays the assistant tool call and
+      supplies the tool result as a tool-role message so the model can answer.
+    operationId: createChatCompletion
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.model
+        messages:
+        - role: user
+          content: $inputs.userMessage
+        - role: assistant
+          content: $steps.createCompletion.outputs.directContent
+        - role: tool
+          content: $inputs.toolResult
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalContent: $response.body#/choices/0/message/content
+      finalFinishReason: $response.body#/choices/0/finish_reason
+      totalTokens: $response.body#/usage/total_tokens
+  outputs:
+    completionId: $steps.createCompletion.outputs.completionId
+    firstFinishReason: $steps.createCompletion.outputs.finishReason
+    finalContent: $steps.resolveToolCall.outputs.finalContent
+    totalTokens: $steps.resolveToolCall.outputs.totalTokens

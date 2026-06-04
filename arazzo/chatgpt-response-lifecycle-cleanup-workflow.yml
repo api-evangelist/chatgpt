@@ -1,0 +1,101 @@
+arazzo: 1.0.1
+info:
+  title: ChatGPT Response Lifecycle With Cleanup
+  summary: Create a stored response, read its output, then delete it.
+  description: >-
+    Exercises the full stored-response lifecycle of the Responses API. A
+    response is created and stored, its generated output is read back by id,
+    and the stored response is then deleted so it no longer persists on the
+    account. This is the canonical pattern for one-shot generations that must
+    not leave retained data behind. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: responsesApi
+  url: ../openapi/chatgpt-responses-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: response-lifecycle-cleanup
+  summary: Create, read, and delete a single stored Responses API response.
+  description: >-
+    Creates a stored response, retrieves its generated text and usage, then
+    deletes the stored response and confirms the deletion flag.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - model
+    - input
+    properties:
+      apiKey:
+        type: string
+        description: OpenAI API key used as the Bearer credential.
+      model:
+        type: string
+        description: Model ID used to generate the response (e.g. gpt-4o).
+      input:
+        type: string
+        description: The prompt to send to the model.
+  steps:
+  - stepId: createResponse
+    description: >-
+      Create the stored response so it can be retrieved and later deleted.
+    operationId: createResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.model
+        input: $inputs.input
+        store: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      responseId: $response.body#/id
+      status: $response.body#/status
+  - stepId: readResponse
+    description: >-
+      Retrieve the stored response by id to capture the generated text and
+      token usage before deleting it.
+    operationId: getResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: response_id
+      in: path
+      value: $steps.createResponse.outputs.responseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      outputText: $response.body#/output/0/content/0/text
+      totalTokens: $response.body#/usage/total_tokens
+  - stepId: deleteResponse
+    description: >-
+      Delete the stored response so it no longer persists on the account, and
+      confirm the deletion flag in the body.
+    operationId: deleteResponse
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: response_id
+      in: path
+      value: $steps.createResponse.outputs.responseId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.deleted == true
+      type: jsonpath
+    outputs:
+      deletedId: $response.body#/id
+      deleted: $response.body#/deleted
+  outputs:
+    responseId: $steps.createResponse.outputs.responseId
+    outputText: $steps.readResponse.outputs.outputText
+    totalTokens: $steps.readResponse.outputs.totalTokens
+    deleted: $steps.deleteResponse.outputs.deleted
