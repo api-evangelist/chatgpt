@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ChatGPT Responses API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Responses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Chatgpt Create Response",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openai.com/v1/responses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a model response. Provide text or image inputs to generate\ntext or JSON outputs. The Responses API supports built-in tools for\nweb search, file search, computer use, and code interpreter, as well\nas custom function tools. It can also handle multi-turn conversations\nusing the previous_response_id parameter.\n"
+        },
+        {
+          "info": {
+            "name": "Chatgpt Retrieve Response",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openai.com/v1/responses/:response_id",
+            "params": [
+              {
+                "name": "response_id",
+                "value": "500123",
+                "type": "path",
+                "description": "The ID of the response to retrieve."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Additional fields to include in the response. Use\nfile_search_call.results to include file search results,\nmessage.input_image.image_url to include image URLs, or\ncomputer_call_output.output.image_url to include computer\ncall output images.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves a model response with the given ID.\n"
+        },
+        {
+          "info": {
+            "name": "Chatgpt Delete Response",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.openai.com/v1/responses/:response_id",
+            "params": [
+              {
+                "name": "response_id",
+                "value": "500123",
+                "type": "path",
+                "description": "The ID of the response to delete."
+              }
+            ]
+          },
+          "docs": "Deletes a model response with the given ID.\n"
+        },
+        {
+          "info": {
+            "name": "Chatgpt List Input Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openai.com/v1/responses/:response_id/input_items",
+            "params": [
+              {
+                "name": "response_id",
+                "value": "500123",
+                "type": "path",
+                "description": "The ID of the response to retrieve input items for."
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "A limit on the number of objects to be returned. Limit can\nrange between 1 and 100, and the default is 20.\n"
+              },
+              {
+                "name": "order",
+                "value": "asc",
+                "type": "query",
+                "description": "Sort order by the created_at timestamp."
+              },
+              {
+                "name": "after",
+                "value": "example_value",
+                "type": "query",
+                "description": "A cursor for use in pagination. An object ID that defines\nyour place in the list.\n"
+              },
+              {
+                "name": "before",
+                "value": "example_value",
+                "type": "query",
+                "description": "A cursor for use in pagination. An object ID that defines\nyour place in the list.\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of input items for a given response.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

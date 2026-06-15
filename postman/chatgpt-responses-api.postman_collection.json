@@ -1,0 +1,885 @@
+{
+  "info": {
+    "_postman_id": "a9d850f8-c29f-46c7-b42b-674accd77e6a",
+    "name": "ChatGPT Responses API",
+    "description": "OpenAI's Responses API is the recommended API primitive for building with\nOpenAI models. It is an evolution of the Chat Completions API with built-in\ntools such as web search, file search, computer use, and code interpreter.\nThe Responses API supports multi-turn conversations, streaming, and\nagentic workflows with a simplified interface.\n\n\nContact Support:\n Name: OpenAI Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:06:43.000Z",
+    "updatedAt": "2026-06-05T15:06:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a9d850f8-c29f-46c7-b42b-674accd77e6a"
+  },
+  "item": [
+    {
+      "name": "responses",
+      "item": [
+        {
+          "name": "{response_id}",
+          "item": [
+            {
+              "name": "input_items",
+              "item": [
+                {
+                  "name": "Chatgpt List Input Items",
+                  "id": "b0de15f1-2127-41ae-9373-26fb3254e5cd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/responses/:response_id/input_items?limit=20&order=asc&after=<string>&before=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "responses",
+                        ":response_id",
+                        "input_items"
+                      ],
+                      "query": [
+                        {
+                          "description": "A limit on the number of objects to be returned. Limit can\nrange between 1 and 100, and the default is 20.\n",
+                          "key": "limit",
+                          "value": "20"
+                        },
+                        {
+                          "description": "Sort order by the created_at timestamp.",
+                          "key": "order",
+                          "value": "asc"
+                        },
+                        {
+                          "description": "A cursor for use in pagination. An object ID that defines\nyour place in the list.\n",
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "A cursor for use in pagination. An object ID that defines\nyour place in the list.\n",
+                          "key": "before",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "dd33b146-98d1-41de-b24d-bddf8f499fa9",
+                          "key": "response_id",
+                          "value": "<string>",
+                          "description": "(Required) The ID of the response to retrieve input items for."
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of input items for a given response.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "264f1178-fe83-47dd-ac9c-dcdbcbcb4af9",
+                      "name": "Successful retrieval of input items",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/responses/:response_id/input_items?limit=20&order=asc&after=<string>&before=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "responses",
+                            ":response_id",
+                            "input_items"
+                          ],
+                          "query": [
+                            {
+                              "description": "A limit on the number of objects to be returned. Limit can\nrange between 1 and 100, and the default is 20.\n",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Sort order by the created_at timestamp.",
+                              "key": "order",
+                              "value": "asc"
+                            },
+                            {
+                              "description": "A cursor for use in pagination. An object ID that defines\nyour place in the list.\n",
+                              "key": "after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "A cursor for use in pagination. An object ID that defines\nyour place in the list.\n",
+                              "key": "before",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "response_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"role\": \"developer\",\n      \"content\": \"<string>\",\n      \"type\": \"message\",\n      \"id\": \"<string>\",\n      \"call_id\": \"<string>\",\n      \"output\": \"<string>\",\n      \"status\": \"completed\"\n    },\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"type\": \"item_reference\",\n      \"id\": \"<string>\",\n      \"call_id\": \"<string>\",\n      \"output\": \"<string>\",\n      \"status\": \"completed\"\n    }\n  ],\n  \"has_more\": \"<boolean>\",\n  \"first_id\": \"<string>\",\n  \"last_id\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:06:44.000Z",
+                      "updatedAt": "2026-06-05T15:06:44.000Z",
+                      "uid": "35240-264f1178-fe83-47dd-ac9c-dcdbcbcb4af9"
+                    },
+                    {
+                      "id": "bfacbd46-bfbc-41a7-aa68-75b6fc790c92",
+                      "name": "Not Found - Response does not exist",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/responses/:response_id/input_items?limit=20&order=asc&after=<string>&before=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "responses",
+                            ":response_id",
+                            "input_items"
+                          ],
+                          "query": [
+                            {
+                              "description": "A limit on the number of objects to be returned. Limit can\nrange between 1 and 100, and the default is 20.\n",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Sort order by the created_at timestamp.",
+                              "key": "order",
+                              "value": "asc"
+                            },
+                            {
+                              "description": "A cursor for use in pagination. An object ID that defines\nyour place in the list.\n",
+                              "key": "after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "A cursor for use in pagination. An object ID that defines\nyour place in the list.\n",
+                              "key": "before",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "response_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:06:44.000Z",
+                      "updatedAt": "2026-06-05T15:06:44.000Z",
+                      "uid": "35240-bfacbd46-bfbc-41a7-aa68-75b6fc790c92"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:06:44.000Z",
+                  "updatedAt": "2026-06-05T15:06:44.000Z",
+                  "uid": "35240-b0de15f1-2127-41ae-9373-26fb3254e5cd"
+                }
+              ],
+              "id": "707224f4-914f-4ce2-af2a-aa199a4b5143",
+              "createdAt": "2026-06-05T15:06:44.000Z",
+              "updatedAt": "2026-06-05T15:06:44.000Z",
+              "uid": "35240-707224f4-914f-4ce2-af2a-aa199a4b5143"
+            },
+            {
+              "name": "Chatgpt Retrieve Response",
+              "id": "b9677266-55ba-4caa-bb01-2424aba84c26",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/responses/:response_id?include=message.input_image.image_url&include=computer_call_output.output.image_url",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "responses",
+                    ":response_id"
+                  ],
+                  "query": [
+                    {
+                      "description": "Additional fields to include in the response. Use\nfile_search_call.results to include file search results,\nmessage.input_image.image_url to include image URLs, or\ncomputer_call_output.output.image_url to include computer\ncall output images.\n",
+                      "key": "include",
+                      "value": "message.input_image.image_url"
+                    },
+                    {
+                      "description": "Additional fields to include in the response. Use\nfile_search_call.results to include file search results,\nmessage.input_image.image_url to include image URLs, or\ncomputer_call_output.output.image_url to include computer\ncall output images.\n",
+                      "key": "include",
+                      "value": "computer_call_output.output.image_url"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "7b9bbeb3-ac0a-46b5-b5d7-cd9dcfaa1982",
+                      "key": "response_id",
+                      "value": "<string>",
+                      "description": "(Required) The ID of the response to retrieve."
+                    }
+                  ]
+                },
+                "description": "Retrieves a model response with the given ID.\n"
+              },
+              "response": [
+                {
+                  "id": "a618594b-3b69-4b00-8adf-68a39fffe44e",
+                  "name": "Successful retrieval",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/responses/:response_id?include=computer_call_output.output.image_url",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "responses",
+                        ":response_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Additional fields to include in the response. Use\nfile_search_call.results to include file search results,\nmessage.input_image.image_url to include image URLs, or\ncomputer_call_output.output.image_url to include computer\ncall output images.\n",
+                          "key": "include",
+                          "value": "computer_call_output.output.image_url"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "response_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"response\",\n  \"created_at\": \"<integer>\",\n  \"model\": \"<string>\",\n  \"status\": \"incomplete\",\n  \"output\": [\n    {\n      \"type\": \"web_search_call\",\n      \"id\": \"<string>\",\n      \"role\": \"assistant\",\n      \"status\": \"completed\",\n      \"content\": [\n        {\n          \"type\": \"output_text\",\n          \"text\": \"<string>\",\n          \"refusal\": \"<string>\",\n          \"annotations\": [\n            {\n              \"type\": \"file_path\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            },\n            {\n              \"type\": \"file_path\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"output_text\",\n          \"text\": \"<string>\",\n          \"refusal\": \"<string>\",\n          \"annotations\": [\n            {\n              \"type\": \"url_citation\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            },\n            {\n              \"type\": \"file_path\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"name\": \"<string>\",\n      \"call_id\": \"<string>\",\n      \"arguments\": \"<string>\",\n      \"summary\": [\n        {\n          \"type\": \"summary_text\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"summary_text\",\n          \"text\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"type\": \"mcp_call\",\n      \"id\": \"<string>\",\n      \"role\": \"assistant\",\n      \"status\": \"in_progress\",\n      \"content\": [\n        {\n          \"type\": \"refusal\",\n          \"text\": \"<string>\",\n          \"refusal\": \"<string>\",\n          \"annotations\": [\n            {\n              \"type\": \"file_path\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            },\n            {\n              \"type\": \"url_citation\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"refusal\",\n          \"text\": \"<string>\",\n          \"refusal\": \"<string>\",\n          \"annotations\": [\n            {\n              \"type\": \"file_citation\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            },\n            {\n              \"type\": \"file_path\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"name\": \"<string>\",\n      \"call_id\": \"<string>\",\n      \"arguments\": \"<string>\",\n      \"summary\": [\n        {\n          \"type\": \"summary_text\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"summary_text\",\n          \"text\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"usage\": {\n    \"input_tokens\": \"<integer>\",\n    \"output_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\",\n    \"input_tokens_details\": {\n      \"cached_tokens\": \"<integer>\"\n    },\n    \"output_tokens_details\": {\n      \"reasoning_tokens\": \"<integer>\"\n    }\n  },\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  },\n  \"incomplete_details\": {\n    \"reason\": \"max_output_tokens\"\n  },\n  \"instructions\": \"<string>\",\n  \"metadata\": {\n    \"officia_1_\": \"<string>\",\n    \"ad_b\": \"<string>\",\n    \"veniam_3\": \"<string>\"\n  },\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"previous_response_id\": \"<string>\",\n  \"reasoning\": {\n    \"effort\": \"high\",\n    \"summary\": \"<string>\"\n  },\n  \"text\": {},\n  \"tools\": [\n    {\n      \"type\": \"code_interpreter\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"linux\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"commodo55c\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"computer_use_preview\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"default_2024_11_15\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"mac\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"pariatur6e8\": \"<string>\",\n        \"Utd7\": \"<string>\"\n      }\n    }\n  ],\n  \"tool_choice\": {\n    \"description\": \"The tool choice setting used.\",\n    \"example\": \"example_value\"\n  },\n  \"truncation\": \"<string>\",\n  \"user\": \"<string>\",\n  \"service_tier\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:06:44.000Z",
+                  "updatedAt": "2026-06-05T15:06:44.000Z",
+                  "uid": "35240-a618594b-3b69-4b00-8adf-68a39fffe44e"
+                },
+                {
+                  "id": "d887c428-02d7-4297-9f84-31c529611f66",
+                  "name": "Not Found - Response does not exist",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/responses/:response_id?include=computer_call_output.output.image_url",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "responses",
+                        ":response_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Additional fields to include in the response. Use\nfile_search_call.results to include file search results,\nmessage.input_image.image_url to include image URLs, or\ncomputer_call_output.output.image_url to include computer\ncall output images.\n",
+                          "key": "include",
+                          "value": "computer_call_output.output.image_url"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "response_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:06:44.000Z",
+                  "updatedAt": "2026-06-05T15:06:44.000Z",
+                  "uid": "35240-d887c428-02d7-4297-9f84-31c529611f66"
+                }
+              ],
+              "createdAt": "2026-06-05T15:06:44.000Z",
+              "updatedAt": "2026-06-05T15:06:44.000Z",
+              "uid": "35240-b9677266-55ba-4caa-bb01-2424aba84c26"
+            },
+            {
+              "name": "Chatgpt Delete Response",
+              "id": "30501ca5-22f1-4b89-bd5a-68b106c6a8f0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/responses/:response_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "responses",
+                    ":response_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e05961c8-1481-4417-8c27-a6bb0511111d",
+                      "key": "response_id",
+                      "value": "<string>",
+                      "description": "(Required) The ID of the response to delete."
+                    }
+                  ]
+                },
+                "description": "Deletes a model response with the given ID.\n"
+              },
+              "response": [
+                {
+                  "id": "790f5d22-f279-4828-bd78-bd754b23506c",
+                  "name": "Response deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/responses/:response_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "responses",
+                        ":response_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "response_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"response.deleted\",\n  \"deleted\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:06:44.000Z",
+                  "updatedAt": "2026-06-05T15:06:44.000Z",
+                  "uid": "35240-790f5d22-f279-4828-bd78-bd754b23506c"
+                },
+                {
+                  "id": "bbff6c26-b35d-4281-ac4b-5f8e482cb496",
+                  "name": "Not Found - Response does not exist",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/responses/:response_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "responses",
+                        ":response_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "response_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:06:44.000Z",
+                  "updatedAt": "2026-06-05T15:06:44.000Z",
+                  "uid": "35240-bbff6c26-b35d-4281-ac4b-5f8e482cb496"
+                }
+              ],
+              "createdAt": "2026-06-05T15:06:44.000Z",
+              "updatedAt": "2026-06-05T15:06:44.000Z",
+              "uid": "35240-30501ca5-22f1-4b89-bd5a-68b106c6a8f0"
+            }
+          ],
+          "id": "49d5bab6-aee2-4194-9d8f-bb22541b8109",
+          "createdAt": "2026-06-05T15:06:44.000Z",
+          "updatedAt": "2026-06-05T15:06:44.000Z",
+          "uid": "35240-49d5bab6-aee2-4194-9d8f-bb22541b8109"
+        },
+        {
+          "name": "Chatgpt Create Response",
+          "id": "0b0399c8-5f37-4bf7-8aef-2147c5f4626b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"previous_response_id\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"tools\": [\n    {\n      \"type\": \"web_search_preview\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"windows\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"est_a\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"image_generation\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"default_2024_11_15\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"windows\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"ut6\": \"<string>\",\n        \"irure_5\": \"<string>\"\n      }\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"truncation\": \"disabled\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"json_object\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": {},\n      \"strict\": \"<boolean>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"medium\",\n    \"summary\": \"auto\"\n  },\n  \"store\": true,\n  \"metadata\": {\n    \"laboris_1c\": \"<string>\",\n    \"cillum_91_\": \"<string>\",\n    \"ipsum_3df\": \"<string>\",\n    \"reprehenderit_1ec\": \"<string>\",\n    \"dolore_a6\": \"<string>\",\n    \"ex0bc\": \"<string>\",\n    \"Excepteur__9\": \"<string>\",\n    \"aliquip_df2\": \"<string>\",\n    \"nisi_58\": \"<string>\",\n    \"non41\": \"<string>\",\n    \"eu1\": \"<string>\",\n    \"aute_3e\": \"<string>\",\n    \"consectetur_03\": \"<string>\",\n    \"consequat_d\": \"<string>\",\n    \"Lorem_4\": \"<string>\",\n    \"aliqua1b0\": \"<string>\"\n  },\n  \"stream\": false,\n  \"parallel_tool_calls\": true,\n  \"user\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/responses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "responses"
+              ]
+            },
+            "description": "Creates a model response. Provide text or image inputs to generate\ntext or JSON outputs. The Responses API supports built-in tools for\nweb search, file search, computer use, and code interpreter, as well\nas custom function tools. It can also handle multi-turn conversations\nusing the previous_response_id parameter.\n"
+          },
+          "response": [
+            {
+              "id": "831f85cc-d528-4b1b-b6a4-828f29c57df5",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"previous_response_id\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"tools\": [\n    {\n      \"type\": \"web_search_preview\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"windows\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"est_a\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"image_generation\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"default_2024_11_15\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"windows\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"ut6\": \"<string>\",\n        \"irure_5\": \"<string>\"\n      }\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"truncation\": \"disabled\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"json_object\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": {},\n      \"strict\": \"<boolean>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"medium\",\n    \"summary\": \"auto\"\n  },\n  \"store\": true,\n  \"metadata\": {\n    \"laboris_1c\": \"<string>\",\n    \"cillum_91_\": \"<string>\",\n    \"ipsum_3df\": \"<string>\",\n    \"reprehenderit_1ec\": \"<string>\",\n    \"dolore_a6\": \"<string>\",\n    \"ex0bc\": \"<string>\",\n    \"Excepteur__9\": \"<string>\",\n    \"aliquip_df2\": \"<string>\",\n    \"nisi_58\": \"<string>\",\n    \"non41\": \"<string>\",\n    \"eu1\": \"<string>\",\n    \"aute_3e\": \"<string>\",\n    \"consectetur_03\": \"<string>\",\n    \"consequat_d\": \"<string>\",\n    \"Lorem_4\": \"<string>\",\n    \"aliqua1b0\": \"<string>\"\n  },\n  \"stream\": false,\n  \"parallel_tool_calls\": true,\n  \"user\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/responses",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "responses"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"response\",\n  \"created_at\": \"<integer>\",\n  \"model\": \"<string>\",\n  \"status\": \"incomplete\",\n  \"output\": [\n    {\n      \"type\": \"web_search_call\",\n      \"id\": \"<string>\",\n      \"role\": \"assistant\",\n      \"status\": \"completed\",\n      \"content\": [\n        {\n          \"type\": \"output_text\",\n          \"text\": \"<string>\",\n          \"refusal\": \"<string>\",\n          \"annotations\": [\n            {\n              \"type\": \"file_path\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            },\n            {\n              \"type\": \"file_path\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"output_text\",\n          \"text\": \"<string>\",\n          \"refusal\": \"<string>\",\n          \"annotations\": [\n            {\n              \"type\": \"url_citation\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            },\n            {\n              \"type\": \"file_path\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"name\": \"<string>\",\n      \"call_id\": \"<string>\",\n      \"arguments\": \"<string>\",\n      \"summary\": [\n        {\n          \"type\": \"summary_text\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"summary_text\",\n          \"text\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"type\": \"mcp_call\",\n      \"id\": \"<string>\",\n      \"role\": \"assistant\",\n      \"status\": \"in_progress\",\n      \"content\": [\n        {\n          \"type\": \"refusal\",\n          \"text\": \"<string>\",\n          \"refusal\": \"<string>\",\n          \"annotations\": [\n            {\n              \"type\": \"file_path\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            },\n            {\n              \"type\": \"url_citation\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"refusal\",\n          \"text\": \"<string>\",\n          \"refusal\": \"<string>\",\n          \"annotations\": [\n            {\n              \"type\": \"file_citation\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            },\n            {\n              \"type\": \"file_path\",\n              \"start_index\": \"<integer>\",\n              \"end_index\": \"<integer>\",\n              \"url\": \"<uri>\",\n              \"title\": \"<string>\",\n              \"file_id\": \"<string>\",\n              \"quote\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"name\": \"<string>\",\n      \"call_id\": \"<string>\",\n      \"arguments\": \"<string>\",\n      \"summary\": [\n        {\n          \"type\": \"summary_text\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"summary_text\",\n          \"text\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"usage\": {\n    \"input_tokens\": \"<integer>\",\n    \"output_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\",\n    \"input_tokens_details\": {\n      \"cached_tokens\": \"<integer>\"\n    },\n    \"output_tokens_details\": {\n      \"reasoning_tokens\": \"<integer>\"\n    }\n  },\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  },\n  \"incomplete_details\": {\n    \"reason\": \"max_output_tokens\"\n  },\n  \"instructions\": \"<string>\",\n  \"metadata\": {\n    \"officia_1_\": \"<string>\",\n    \"ad_b\": \"<string>\",\n    \"veniam_3\": \"<string>\"\n  },\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"previous_response_id\": \"<string>\",\n  \"reasoning\": {\n    \"effort\": \"high\",\n    \"summary\": \"<string>\"\n  },\n  \"text\": {},\n  \"tools\": [\n    {\n      \"type\": \"code_interpreter\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"linux\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"commodo55c\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"computer_use_preview\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"default_2024_11_15\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"mac\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"pariatur6e8\": \"<string>\",\n        \"Utd7\": \"<string>\"\n      }\n    }\n  ],\n  \"tool_choice\": {\n    \"description\": \"The tool choice setting used.\",\n    \"example\": \"example_value\"\n  },\n  \"truncation\": \"<string>\",\n  \"user\": \"<string>\",\n  \"service_tier\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:06:44.000Z",
+              "updatedAt": "2026-06-05T15:06:44.000Z",
+              "uid": "35240-831f85cc-d528-4b1b-b6a4-828f29c57df5"
+            },
+            {
+              "id": "f118ced7-2cca-4ef9-b113-aeff0ae58f2a",
+              "name": "Bad Request - Invalid parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"previous_response_id\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"tools\": [\n    {\n      \"type\": \"web_search_preview\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"windows\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"est_a\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"image_generation\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"default_2024_11_15\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"windows\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"ut6\": \"<string>\",\n        \"irure_5\": \"<string>\"\n      }\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"truncation\": \"disabled\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"json_object\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": {},\n      \"strict\": \"<boolean>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"medium\",\n    \"summary\": \"auto\"\n  },\n  \"store\": true,\n  \"metadata\": {\n    \"laboris_1c\": \"<string>\",\n    \"cillum_91_\": \"<string>\",\n    \"ipsum_3df\": \"<string>\",\n    \"reprehenderit_1ec\": \"<string>\",\n    \"dolore_a6\": \"<string>\",\n    \"ex0bc\": \"<string>\",\n    \"Excepteur__9\": \"<string>\",\n    \"aliquip_df2\": \"<string>\",\n    \"nisi_58\": \"<string>\",\n    \"non41\": \"<string>\",\n    \"eu1\": \"<string>\",\n    \"aute_3e\": \"<string>\",\n    \"consectetur_03\": \"<string>\",\n    \"consequat_d\": \"<string>\",\n    \"Lorem_4\": \"<string>\",\n    \"aliqua1b0\": \"<string>\"\n  },\n  \"stream\": false,\n  \"parallel_tool_calls\": true,\n  \"user\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/responses",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "responses"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:06:44.000Z",
+              "updatedAt": "2026-06-05T15:06:44.000Z",
+              "uid": "35240-f118ced7-2cca-4ef9-b113-aeff0ae58f2a"
+            },
+            {
+              "id": "efaff3cd-e98f-451b-92c0-def5bd46a23c",
+              "name": "Unauthorized - Invalid or missing API key",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"previous_response_id\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"tools\": [\n    {\n      \"type\": \"web_search_preview\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"windows\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"est_a\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"image_generation\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"default_2024_11_15\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"windows\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"ut6\": \"<string>\",\n        \"irure_5\": \"<string>\"\n      }\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"truncation\": \"disabled\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"json_object\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": {},\n      \"strict\": \"<boolean>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"medium\",\n    \"summary\": \"auto\"\n  },\n  \"store\": true,\n  \"metadata\": {\n    \"laboris_1c\": \"<string>\",\n    \"cillum_91_\": \"<string>\",\n    \"ipsum_3df\": \"<string>\",\n    \"reprehenderit_1ec\": \"<string>\",\n    \"dolore_a6\": \"<string>\",\n    \"ex0bc\": \"<string>\",\n    \"Excepteur__9\": \"<string>\",\n    \"aliquip_df2\": \"<string>\",\n    \"nisi_58\": \"<string>\",\n    \"non41\": \"<string>\",\n    \"eu1\": \"<string>\",\n    \"aute_3e\": \"<string>\",\n    \"consectetur_03\": \"<string>\",\n    \"consequat_d\": \"<string>\",\n    \"Lorem_4\": \"<string>\",\n    \"aliqua1b0\": \"<string>\"\n  },\n  \"stream\": false,\n  \"parallel_tool_calls\": true,\n  \"user\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/responses",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "responses"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:06:44.000Z",
+              "updatedAt": "2026-06-05T15:06:44.000Z",
+              "uid": "35240-efaff3cd-e98f-451b-92c0-def5bd46a23c"
+            },
+            {
+              "id": "3994daec-dfbc-4af6-8f3f-bab8313ccb13",
+              "name": "Too Many Requests - Rate limit exceeded",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"previous_response_id\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"tools\": [\n    {\n      \"type\": \"web_search_preview\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"windows\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"est_a\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"image_generation\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"default_2024_11_15\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"windows\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"ut6\": \"<string>\",\n        \"irure_5\": \"<string>\"\n      }\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"truncation\": \"disabled\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"json_object\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": {},\n      \"strict\": \"<boolean>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"medium\",\n    \"summary\": \"auto\"\n  },\n  \"store\": true,\n  \"metadata\": {\n    \"laboris_1c\": \"<string>\",\n    \"cillum_91_\": \"<string>\",\n    \"ipsum_3df\": \"<string>\",\n    \"reprehenderit_1ec\": \"<string>\",\n    \"dolore_a6\": \"<string>\",\n    \"ex0bc\": \"<string>\",\n    \"Excepteur__9\": \"<string>\",\n    \"aliquip_df2\": \"<string>\",\n    \"nisi_58\": \"<string>\",\n    \"non41\": \"<string>\",\n    \"eu1\": \"<string>\",\n    \"aute_3e\": \"<string>\",\n    \"consectetur_03\": \"<string>\",\n    \"consequat_d\": \"<string>\",\n    \"Lorem_4\": \"<string>\",\n    \"aliqua1b0\": \"<string>\"\n  },\n  \"stream\": false,\n  \"parallel_tool_calls\": true,\n  \"user\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/responses",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "responses"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:06:44.000Z",
+              "updatedAt": "2026-06-05T15:06:44.000Z",
+              "uid": "35240-3994daec-dfbc-4af6-8f3f-bab8313ccb13"
+            },
+            {
+              "id": "19ef7276-1c70-4135-abf1-4b3042460851",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"previous_response_id\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"tools\": [\n    {\n      \"type\": \"web_search_preview\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"windows\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"est_a\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"image_generation\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {},\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"default_2024_11_15\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"windows\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"ut6\": \"<string>\",\n        \"irure_5\": \"<string>\"\n      }\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"truncation\": \"disabled\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"json_object\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": {},\n      \"strict\": \"<boolean>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"medium\",\n    \"summary\": \"auto\"\n  },\n  \"store\": true,\n  \"metadata\": {\n    \"laboris_1c\": \"<string>\",\n    \"cillum_91_\": \"<string>\",\n    \"ipsum_3df\": \"<string>\",\n    \"reprehenderit_1ec\": \"<string>\",\n    \"dolore_a6\": \"<string>\",\n    \"ex0bc\": \"<string>\",\n    \"Excepteur__9\": \"<string>\",\n    \"aliquip_df2\": \"<string>\",\n    \"nisi_58\": \"<string>\",\n    \"non41\": \"<string>\",\n    \"eu1\": \"<string>\",\n    \"aute_3e\": \"<string>\",\n    \"consectetur_03\": \"<string>\",\n    \"consequat_d\": \"<string>\",\n    \"Lorem_4\": \"<string>\",\n    \"aliqua1b0\": \"<string>\"\n  },\n  \"stream\": false,\n  \"parallel_tool_calls\": true,\n  \"user\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/responses",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "responses"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:06:44.000Z",
+              "updatedAt": "2026-06-05T15:06:44.000Z",
+              "uid": "35240-19ef7276-1c70-4135-abf1-4b3042460851"
+            }
+          ],
+          "createdAt": "2026-06-05T15:06:44.000Z",
+          "updatedAt": "2026-06-05T15:06:44.000Z",
+          "uid": "35240-0b0399c8-5f37-4bf7-8aef-2147c5f4626b"
+        }
+      ],
+      "id": "0fc7bfda-edb7-4f21-9d7a-3b9861b5fad1",
+      "createdAt": "2026-06-05T15:06:44.000Z",
+      "updatedAt": "2026-06-05T15:06:44.000Z",
+      "uid": "35240-0fc7bfda-edb7-4f21-9d7a-3b9861b5fad1"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.openai.com/v1"
+    }
+  ]
+}
