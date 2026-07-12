@@ -320,6 +320,14 @@ maintainers:
     email: support@openai.com
     url: https://openai.com
 common:
+  - type: TrustCenter
+    url: security/chatgpt-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/chatgpt-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/chatgpt-domain-security.yml
+  - type: Authentication
+    url: authentication/chatgpt-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/chatgpt/overview
   - type: Arazzo
