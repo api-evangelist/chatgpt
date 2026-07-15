@@ -320,6 +320,8 @@ maintainers:
     email: support@openai.com
     url: https://openai.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/chatgpt-agentic-access.yml
   - type: TrustCenter
     url: security/chatgpt-trust-center.yml
   - type: VulnerabilityDisclosure
