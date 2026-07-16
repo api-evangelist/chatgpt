@@ -1,0 +1,32 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for ChatGPT Chat Completions API
+  version: 1.0.0
+extends: openapi/chatgpt-chat-completions-api-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: chatgpt
+      x-apievangelist-artifacts:
+        authentication: authentication/chatgpt-authentication.yml
+        errors: errors/chatgpt-problem-types.yml
+        conventions: conventions/chatgpt-conventions.yml
+        lifecycle: lifecycle/chatgpt-lifecycle.yml
+        conformance: conformance/chatgpt-conformance.yml
+        packages: packages/chatgpt-packages.yml
+        changelog: changelog/chatgpt-changelog.yml
+        data-model: data-model/chatgpt-data-model.yml
+  - target: $.info
+    update:
+      x-apievangelist-tags:
+        - Artificial Intelligence
+        - Conversational AI
+        - Natural Language Processing
+  - target: $.paths['/chat/completions'].post
+    update:
+      x-apievangelist-error-envelope: '{ error: { message, type, param, code } }'
+      x-apievangelist-rate-limit-headers:
+        - x-ratelimit-limit-requests
+        - x-ratelimit-remaining-requests
+        - x-ratelimit-limit-tokens
+        - x-ratelimit-remaining-tokens

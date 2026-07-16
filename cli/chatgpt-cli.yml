@@ -1,0 +1,41 @@
+generated: '2026-06-20'
+method: searched
+source: https://developers.openai.com/api/docs/libraries
+description: >-
+  OpenAI ships two first-party CLIs. The `openai` CLI wraps the REST API for
+  terminal workflows; the `codex` CLI is OpenAI's coding agent for the terminal.
+  The CLI binaries themselves are catalogued in packages/chatgpt-packages.yml.
+clis:
+  - name: openai
+    binary: openai
+    install:
+      - method: homebrew
+        command: brew install openai/tools/openai
+      - method: pip
+        command: pip install openai
+        note: The Python library also installs the `openai` command.
+    auth:
+      env: OPENAI_API_KEY
+    surface:
+      - group: api
+        purpose: Compose and send raw API calls.
+      - group: images
+        purpose: Generate and edit images from the terminal.
+      - group: audio
+        purpose: Text-to-speech and transcription workflows.
+      - group: files
+        purpose: Upload and manage files.
+    notes: >-
+      Documented use cases include extracting structured data from files,
+      generating images, creating speech, and composing API calls.
+  - name: codex
+    binary: codex
+    install:
+      - method: npm
+        command: npm install -g @openai/codex
+    surface:
+      - group: mcp
+        purpose: Add and manage MCP servers (e.g. codex mcp add openaiDeveloperDocs --url https://developers.openai.com/mcp).
+    notes: >-
+      OpenAI Codex agentic coding CLI; also ships as a Codex app and IDE
+      extensions. See blogs/ (codex-*) for feature coverage.

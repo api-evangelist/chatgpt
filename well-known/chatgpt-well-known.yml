@@ -1,0 +1,43 @@
+generated: '2026-06-20'
+method: searched
+source: live probes of /.well-known/ on OpenAI hosts
+notes: >-
+  The API host api.openai.com serves none of the probed discovery documents.
+  platform.openai.com serves a real RFC 9116 security.txt (PGP-signed, saved
+  verbatim). Its /.well-known/openid-configuration and
+  /.well-known/oauth-authorization-server return HTTP 200 but are the SPA HTML
+  shell (the docs single-page app catch-all), not valid discovery documents, so
+  they are recorded as present-but-not-a-document rather than saved.
+hosts:
+  - host: https://platform.openai.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: chatgpt-security.txt
+        valid: true
+      - path: /.well-known/openid-configuration
+        status: 200
+        valid: false
+        note: returns SPA HTML shell, not an OIDC discovery document
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        valid: false
+        note: returns SPA HTML shell, not an RFC 8414 metadata document
+  - host: https://openai.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        valid: true
+        note: canonical security.txt (same policy as platform host)
+  - host: https://api.openai.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404

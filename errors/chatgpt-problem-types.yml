@@ -1,0 +1,78 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  derived from openapi/chatgpt-chat-completions-api-openapi.yml and
+  openapi/chatgpt-responses-api-openapi.yml 4xx/5xx responses; enriched from
+  https://developers.openai.com/api/docs/guides/error-codes
+format: openai-error-object
+envelope:
+  shape: '{ "error": { "message": string, "type": string, "param": string|null, "code": string|null } }'
+  media_type: application/json
+  notes: >-
+    OpenAI does NOT use RFC 9457 application/problem+json. Errors are returned
+    as a JSON object with a single top-level `error` member carrying message,
+    type, param, and code. The `type` classifies the error family and `code`
+    is a machine-readable identifier when available. The Python/Node libraries
+    surface these as typed exceptions (e.g. RateLimitError, AuthenticationError,
+    APIConnectionError).
+problems:
+  - status: 400
+    type: invalid_request_error
+    title: Bad Request
+    meaning: Malformed request, missing or invalid parameters.
+    remediation: >-
+      Validate request format and parameter names/types against the API
+      reference; check data encoding. `param` names the offending field.
+    source_operations:
+      - openapi/chatgpt-chat-completions-api-openapi.yml#createChatCompletion
+      - openapi/chatgpt-responses-api-openapi.yml#createResponse
+  - status: 401
+    type: authentication_error
+    title: Unauthorized
+    meaning: Invalid, expired, or missing API key / organization.
+    remediation: >-
+      Verify the API key, confirm organization membership, or generate a new
+      key. Pass the key as a Bearer token in the Authorization header.
+    source_operations:
+      - openapi/chatgpt-chat-completions-api-openapi.yml#createChatCompletion
+      - openapi/chatgpt-responses-api-openapi.yml#createResponse
+  - status: 403
+    type: permission_error
+    title: Forbidden
+    meaning: Request from an unsupported region or the key lacks access to the resource.
+    remediation: Confirm the request origin is a supported country and the key has permission.
+    source: docs
+  - status: 404
+    type: not_found_error
+    title: Not Found
+    meaning: The requested resource does not exist or was deleted.
+    remediation: Verify the resource identifier (e.g. response_id) and that it has not been deleted.
+    source_operations:
+      - openapi/chatgpt-responses-api-openapi.yml#getResponse
+      - openapi/chatgpt-responses-api-openapi.yml#deleteResponse
+      - openapi/chatgpt-responses-api-openapi.yml#listResponseInputItems
+  - status: 429
+    type: rate_limit_exceeded
+    title: Too Many Requests
+    meaning: Too many requests, or quota / insufficient_quota exhausted.
+    remediation: >-
+      Implement exponential backoff, reduce request frequency, and honor the
+      x-ratelimit-* response headers. Upgrade plan or add billing if quota is
+      exhausted (insufficient_quota code).
+    source_operations:
+      - openapi/chatgpt-chat-completions-api-openapi.yml#createChatCompletion
+      - openapi/chatgpt-responses-api-openapi.yml#createResponse
+  - status: 500
+    type: server_error
+    title: Internal Server Error
+    meaning: Server-side processing failure.
+    remediation: Retry after a brief delay; check status.openai.com; contact support if persistent.
+    source_operations:
+      - openapi/chatgpt-chat-completions-api-openapi.yml#createChatCompletion
+      - openapi/chatgpt-responses-api-openapi.yml#createResponse
+  - status: 503
+    type: service_unavailable
+    title: Service Unavailable
+    meaning: Server overloaded or throttled (including "Slow Down" signals).
+    remediation: Retry with backoff; reduce request rate and maintain stable traffic.
+    source: docs

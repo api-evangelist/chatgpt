@@ -1,0 +1,72 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  derived from openapi/ plus https://developers.openai.com/api/docs (guides for
+  authentication, rate limits, error codes, pagination)
+description: >-
+  Cross-cutting request/response semantics shared across the OpenAI API surface
+  (Chat Completions, Responses, and sibling APIs). Cross-links the errors/,
+  lifecycle/, authentication/, and rate-limits/ artifacts.
+authentication:
+  style: bearer-api-key
+  header: 'Authorization: Bearer $OPENAI_API_KEY'
+  scoping_headers:
+    - name: OpenAI-Organization
+      purpose: Target a specific organization for billing/usage.
+    - name: OpenAI-Project
+      purpose: Scope the request to a project.
+  ref: authentication/chatgpt-authentication.yml
+idempotency:
+  supported: partial
+  notes: >-
+    OpenAI does not publish a general idempotency-key contract for the core
+    generation endpoints; retries of non-idempotent create calls may produce
+    additional generations and billing. Treat create operations as
+    non-idempotent and dedupe client-side. Not fabricating a header name.
+pagination:
+  style: cursor
+  params:
+    - after
+    - before
+    - limit
+    - order
+  response_fields:
+    - data
+    - has_more
+    - first_id
+    - last_id
+  applies_to:
+    - openapi/chatgpt-responses-api-openapi.yml#listResponseInputItems
+metadata:
+  supported: true
+  notes: >-
+    Response objects accept a metadata map of key/value string pairs for
+    attaching custom data, returned on retrieval.
+request_tracing:
+  header: x-request-id
+  notes: >-
+    Every API response returns an x-request-id header; include it when
+    contacting support about a specific request.
+versioning:
+  beta_header: OpenAI-Beta
+  model_snapshots: dated (e.g. gpt-5.6, chat-latest)
+  ref: lifecycle/chatgpt-lifecycle.yml
+error_envelope:
+  shape: '{ "error": { "message": string, "type": string, "param": string|null, "code": string|null } }'
+  media_type: application/json
+  standard: openai-error-object (not RFC 9457)
+  ref: errors/chatgpt-problem-types.yml
+rate_limit_signaling:
+  headers:
+    - x-ratelimit-limit-requests
+    - x-ratelimit-remaining-requests
+    - x-ratelimit-reset-requests
+    - x-ratelimit-limit-tokens
+    - x-ratelimit-remaining-tokens
+    - x-ratelimit-reset-tokens
+  dimensions: [requests-per-minute, tokens-per-minute]
+  ref: rate-limits/chatgpt-rate-limits.yml
+streaming:
+  style: server-sent-events
+  param: stream
+  notes: Set stream=true to receive incremental deltas as SSE; background mode also available on Responses.

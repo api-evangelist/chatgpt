@@ -3,7 +3,7 @@ description: OpenAI's ChatGPT API for conversational AI and language model inter
 image: https://openai.com/content/images/2023/05/openai-avatar.png
 url: https://platform.openai.com/docs/api-reference
 created: '2024'
-modified: '2026-05-19'
+modified: '2026-06-20'
 specificationVersion: '0.18'
 kind: contract
 access: 3rd-Party
@@ -320,6 +320,38 @@ maintainers:
     email: support@openai.com
     url: https://openai.com
 common:
+  - type: Packages
+    url: packages/chatgpt-packages.yml
+  - type: WellKnown
+    url: well-known/chatgpt-well-known.yml
+  - type: SecurityTxt
+    url: well-known/chatgpt-security.txt
+  - type: MCPServer
+    url: mcp/chatgpt-mcp.yml
+  - type: LLMsTxt
+    url: llms/chatgpt-llms.txt
+  - type: Overlay
+    url: overlays/chatgpt-chat-completions-api-overlay.yaml
+    name: Chat Completions API enhancements
+  - type: Overlay
+    url: overlays/chatgpt-responses-api-overlay.yaml
+    name: Responses API enhancements
+  - type: Conformance
+    url: conformance/chatgpt-conformance.yml
+  - type: ErrorCatalog
+    url: errors/chatgpt-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/chatgpt-lifecycle.yml
+  - type: Conventions
+    url: conventions/chatgpt-conventions.yml
+  - type: ChangeLog
+    url: changelog/chatgpt-changelog.yml
+  - type: CLI
+    url: cli/chatgpt-cli.yml
+  - type: Components
+    url: components/chatgpt-components.yml
+  - type: DataModel
+    url: data-model/chatgpt-data-model.yml
   - type: AgenticAccess
     url: agentic-access/chatgpt-agentic-access.yml
   - type: TrustCenter

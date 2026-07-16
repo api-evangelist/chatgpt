@@ -1,0 +1,94 @@
+generated: '2026-06-20'
+method: searched
+source: https://developers.openai.com/api/docs/libraries
+description: >-
+  First-party OpenAI client libraries, the Agents SDK, and the OpenAI CLI, as
+  published on the official OpenAI libraries page and public package registries.
+packages:
+  - language: python
+    registry: pypi
+    name: openai
+    url: https://pypi.org/project/openai/
+    install: pip install openai
+    official: true
+    notes: Official OpenAI Python library. Also ships the `openai` CLI entry point.
+  - language: javascript
+    registry: npm
+    name: openai
+    url: https://www.npmjs.com/package/openai
+    install: npm install openai
+    official: true
+    notes: Official OpenAI Node.js / TypeScript library.
+  - language: dotnet
+    registry: nuget
+    name: OpenAI
+    url: https://www.nuget.org/packages/OpenAI
+    install: dotnet add package OpenAI
+    official: true
+  - language: java
+    registry: maven
+    name: com.openai:openai-java
+    url: https://central.sonatype.com/artifact/com.openai/openai-java
+    install: 'implementation("com.openai:openai-java")'
+    official: true
+    notes: Beta.
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/openai/openai-go
+    url: https://pkg.go.dev/github.com/openai/openai-go
+    install: go get github.com/openai/openai-go
+    official: true
+    notes: Beta. Import path pins a major version (e.g. /v3).
+  - language: ruby
+    registry: rubygems
+    name: openai
+    url: https://rubygems.org/gems/openai
+    install: gem install openai
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@openai/agents"
+    url: https://www.npmjs.com/package/@openai/agents
+    install: npm install @openai/agents
+    official: true
+    notes: Agents SDK (orchestration) for TypeScript / JavaScript.
+  - language: python
+    registry: pypi
+    name: openai-agents
+    url: https://pypi.org/project/openai-agents/
+    install: pip install openai-agents
+    official: true
+    notes: Agents SDK (orchestration) for Python.
+  - language: javascript
+    registry: npm
+    name: "@openai/codex"
+    url: https://www.npmjs.com/package/@openai/codex
+    install: npm install -g @openai/codex
+    official: true
+    notes: Codex CLI, OpenAI's coding agent for the terminal.
+  - language: javascript
+    registry: npm
+    name: "@openai/chatkit-react"
+    url: https://www.npmjs.com/package/@openai/chatkit-react
+    install: npm install @openai/chatkit-react
+    official: true
+    notes: React bindings for the ChatKit embeddable chat UI web component (see components/).
+cli:
+  - name: openai
+    install: brew install openai/tools/openai
+    notes: >-
+      Official OpenAI CLI for terminal workflows (structured data extraction,
+      image/speech generation, direct API calls). Also available via the Python
+      package. Command surface catalogued in cli/chatgpt-cli.yml.
+  - name: codex
+    install: npm install -g @openai/codex
+    notes: OpenAI Codex coding agent CLI.
+azure_compatible:
+  note: >-
+    Microsoft maintains Azure-compatible OpenAI libraries for .NET, JavaScript,
+    Java, and Go that work with both the OpenAI API and Azure OpenAI.
+community:
+  note: >-
+    OpenAI's libraries page also lists ~13 community-maintained libraries
+    (Clojure, Dart/Flutter, Elixir, Kotlin, PHP, Rust, Scala, Swift, Unity,
+    Unreal, and more) which OpenAI does not verify; not enumerated here.

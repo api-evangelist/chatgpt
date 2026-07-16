@@ -1,0 +1,44 @@
+generated: '2026-06-20'
+method: searched
+status: published
+source: https://developers.openai.com/learn/docs-mcp/
+description: >-
+  OpenAI publishes an official hosted MCP server that exposes its developer
+  documentation (search + page retrieval) over Streamable HTTP with no
+  authentication. It is documentation-only and does not call the OpenAI API on
+  your behalf. This is distinct from the OpenAI API's own MCP-tool support
+  (the Responses API can call remote MCP servers as a built-in tool).
+server:
+  name: openaiDeveloperDocs
+  transport: http
+  url: https://developers.openai.com/mcp
+  authentication: none
+  access: read-only
+  coverage:
+    - developers.openai.com
+    - platform.openai.com
+    - learn.chatgpt.com
+tools:
+  - name: search
+    description: Search across OpenAI developer documentation.
+  - name: fetch
+    description: Retrieve the content of a specific documentation page.
+install:
+  codex_cli: codex mcp add openaiDeveloperDocs --url https://developers.openai.com/mcp
+  codex_toml: |
+    [mcp_servers.openaiDeveloperDocs]
+    url = "https://developers.openai.com/mcp"
+  vscode_cursor_json: |
+    {
+      "servers": {
+        "openaiDeveloperDocs": {
+          "type": "http",
+          "url": "https://developers.openai.com/mcp"
+        }
+      }
+    }
+related:
+  - note: >-
+      The Responses API supports remote MCP servers as a built-in tool
+      (type: mcp), letting models connect to third-party MCP servers.
+    docs: https://platform.openai.com/docs/guides/tools-remote-mcp

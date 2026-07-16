@@ -1,0 +1,57 @@
+generated: '2026-06-20'
+method: searched
+source: https://developers.openai.com/api/docs/changelog
+scheme: dated-entries
+notes: >-
+  OpenAI maintains a dated changelog organized by month/year. Captured recent
+  window only; the live changelog is the source of truth. Entries here are
+  summarized, not verbatim.
+entries:
+  - date: '2026-07-09'
+    highlights: Released the GPT-5.6 model family (Sol, Terra, Luna variants).
+    breaking: false
+    additions: true
+  - date: '2026-07-06'
+    highlights: New realtime voice models GPT-Realtime-2.1 plus a faster mini variant.
+    breaking: false
+    additions: true
+  - date: '2026-06-24'
+    highlights: Updated chat-latest snapshot to the newest Instant model.
+    breaking: false
+    additions: true
+  - date: '2026-06-09'
+    highlights: Web search expanded to include image results alongside text.
+    breaking: false
+    additions: true
+  - date: '2026-06-04'
+    highlights: Moderation scores added to Responses and Chat Completions (input and output).
+    breaking: false
+    additions: true
+  - date: '2026-06-02'
+    highlights: Container session billing changed to per-minute with a 5-minute minimum.
+    breaking: false
+    additions: false
+  - date: '2026-06-01'
+    highlights: OpenAI models accessible through Amazon Bedrock via the Responses API.
+    breaking: false
+    additions: true
+  - date: '2026-05-29'
+    highlights: Default prompt cache retention extended to 24 hours (non-ZDR orgs).
+    breaking: false
+    additions: false
+  - date: '2026-05-26'
+    highlights: Workload identity federation for short-lived token exchange (no stored keys).
+    breaking: false
+    additions: true
+  - date: '2026-05-19'
+    highlights: Secure MCP Tunnel released for enterprise private-server connections.
+    breaking: false
+    additions: true
+  - date: '2026-05-12'
+    highlights: DALL·E model snapshots and Realtime API Beta deprecated and removed.
+    breaking: true
+    additions: false
+  - date: '2026-05-11'
+    highlights: Added return_token_budget parameter for extended web search research runs.
+    breaking: false
+    additions: true

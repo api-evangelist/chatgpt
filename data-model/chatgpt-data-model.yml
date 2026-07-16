@@ -1,0 +1,116 @@
+generated: '2026-06-20'
+method: derived
+source: >-
+  derived from openapi/chatgpt-chat-completions-api-openapi.yml and
+  openapi/chatgpt-responses-api-openapi.yml schema $ref links and id-reference
+  fields; id-prefix domains from https://developers.openai.com/api/docs
+description: >-
+  Entity-relationship view of the ChatGPT (OpenAI) Chat Completions and
+  Responses object graph, derived from the OpenAPI component schemas and their
+  id-reference fields.
+entities:
+  - name: ChatCompletion
+    schema: CreateChatCompletionResponse
+    id_field: id
+    id_prefix: chatcmpl-
+    relationships:
+      - kind: has_many
+        target: ChatCompletionChoice
+        via: choices
+      - kind: has_one
+        target: CompletionUsage
+        via: usage
+  - name: ChatCompletionChoice
+    schema: ChatCompletionChoice
+    relationships:
+      - kind: has_one
+        target: ChatCompletionAssistantMessage
+        via: message
+  - name: ChatCompletionMessage
+    schema: ChatCompletionMessage
+    relationships:
+      - kind: has_many
+        target: ChatCompletionContentPart
+        via: content
+      - kind: has_many
+        target: ChatCompletionToolCall
+        via: tool_calls
+      - kind: belongs_to
+        target: ChatCompletionToolCall
+        via: tool_call_id
+  - name: ChatCompletionToolCall
+    schema: ChatCompletionToolCall
+    id_field: id
+    relationships:
+      - kind: has_one
+        target: FunctionDefinition
+        via: function
+  - name: Response
+    schema: ResponseObject
+    id_field: id
+    id_prefix: resp_
+    relationships:
+      - kind: belongs_to
+        target: Response
+        via: previous_response_id
+        note: Multi-turn chaining; a response references its predecessor.
+      - kind: has_many
+        target: ResponseOutputItem
+        via: output
+      - kind: has_one
+        target: ResponseUsage
+        via: usage
+      - kind: has_many
+        target: ResponseTool
+        via: tools
+  - name: ResponseInputItem
+    schema: ResponseInputItem
+    id_field: id
+    relationships:
+      - kind: has_many
+        target: ResponseInputContentPart
+        via: content
+      - kind: belongs_to
+        target: ResponseOutputItem
+        via: call_id
+        note: Function/tool call output references the originating call.
+  - name: ResponseOutputItem
+    schema: ResponseOutputItem
+    id_field: id
+    relationships:
+      - kind: has_many
+        target: ResponseOutputContentPart
+        via: content
+      - kind: has_one
+        target: FunctionDefinition
+        via: name/arguments
+        note: Function-call output items carry name + arguments.
+  - name: ResponseOutputContentPart
+    schema: ResponseOutputContentPart
+    relationships:
+      - kind: has_many
+        target: Annotation
+        via: annotations
+  - name: ResponseInputItemList
+    schema: ResponseInputItemList
+    relationships:
+      - kind: has_many
+        target: ResponseInputItem
+        via: data
+        note: Cursor-paginated (has_more/first_id/last_id).
+  - name: ResponseTool
+    schema: ResponseTool
+    relationships:
+      - kind: references
+        target: VectorStore
+        via: vector_store_ids
+        note: File-search tool references vector stores (see OpenAI Vector Stores API).
+cross_reference_ids:
+  - field: previous_response_id
+    entity: Response
+  - field: vector_store_ids
+    entity: VectorStore
+  - field: file_id
+    entity: File
+  - field: call_id
+    entity: ResponseOutputItem (tool/function call)

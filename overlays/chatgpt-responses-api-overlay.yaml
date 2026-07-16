@@ -1,0 +1,29 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for ChatGPT Responses API
+  version: 1.0.0
+extends: openapi/chatgpt-responses-api-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: chatgpt
+      x-apievangelist-recommended: true
+      x-apievangelist-note: >-
+        OpenAI's recommended primitive for new projects; an evolution of Chat
+        Completions with built-in tools (web search, file search, code
+        interpreter, computer use) and agentic workflows.
+      x-apievangelist-artifacts:
+        authentication: authentication/chatgpt-authentication.yml
+        errors: errors/chatgpt-problem-types.yml
+        conventions: conventions/chatgpt-conventions.yml
+        lifecycle: lifecycle/chatgpt-lifecycle.yml
+        conformance: conformance/chatgpt-conformance.yml
+        data-model: data-model/chatgpt-data-model.yml
+  - target: $.paths['/responses'].post
+    update:
+      x-apievangelist-error-envelope: '{ error: { message, type, param, code } }'
+  - target: $.paths['/responses/{response_id}'].get
+    update:
+      x-apievangelist-lifecycle-note: >-
+        Stored responses are retrievable by id and support multi-turn chaining
+        via previous_response_id.

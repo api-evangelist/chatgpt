@@ -1,0 +1,38 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  https://platform.openai.com/docs/guides/chatkit,
+  https://openai.github.io/chatkit-js/,
+  https://www.npmjs.com/package/@openai/chatkit-react
+description: >-
+  ChatKit is OpenAI's embeddable, framework-agnostic chat UI. It ships as a web
+  component and React bindings, connects to an OpenAI-hosted agent workflow, and
+  handles chat state, streaming, tool invocation, file attachments, and
+  chain-of-thought visualization. Distinct from the server-side SDKs in
+  packages/.
+components:
+  - family: ChatKit
+    kind: embeddable-chat-ui
+    element: <openai-chatkit>
+    loaders:
+      - type: web-component
+        note: Add the ChatKit embed script to render the <openai-chatkit> custom element.
+        repo: https://github.com/openai/chatkit-js
+        docs: https://openai.github.io/chatkit-js/
+      - type: react
+        package: "@openai/chatkit-react"
+        registry: npm
+        url: https://www.npmjs.com/package/@openai/chatkit-react
+        note: React bindings (useChatKit hook + JSX helpers) wrapping the web component.
+    capabilities:
+      - Embeddable chat widget with theming/customization
+      - Streaming responses
+      - Tool invocation display
+      - File attachments
+      - Chain-of-thought visualization
+      - Thread switching and imperative message send via helper methods
+    setup:
+      note: >-
+        Create a ChatKit session on the backend with a workflow ID, exchange the
+        client secret for a client token, then embed the component on the page.
+    docs: https://platform.openai.com/docs/guides/chatkit

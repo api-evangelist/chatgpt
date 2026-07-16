@@ -1,0 +1,57 @@
+generated: '2026-06-20'
+method: derived
+source: >-
+  derived from openapi/ securitySchemes, tags, and error/pagination shapes;
+  compliance claims cross-checked against security/chatgpt-trust-center.yml
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      The API uses http bearer (API key) auth, not OAuth2 authorization flows.
+      OAuth appears only in the GPT Actions integration surface, not the core API.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use OpenAI's own { error: { message, type, param, code } } object
+      with application/json, not application/problem+json.
+  - id: http-bearer-auth
+    conforms: true
+    evidence: openapi securityScheme type http scheme bearer (BearerAuth)
+  - id: openapi-3.1
+    conforms: true
+    evidence: both specs declare openapi 3.1.0
+  - id: cursor-pagination
+    conforms: true
+    evidence: >-
+      List endpoints (e.g. listResponseInputItems) use after/before/limit/order
+      cursor pagination with a has_more flag.
+  - id: sse-streaming
+    conforms: true
+    evidence: >-
+      Chat Completions and Responses support server-sent event streaming via the
+      stream parameter.
+  - id: soc2
+    conforms: true
+    evidence: security/chatgpt-trust-center.yml (SOC 2)
+  - id: iso-27001
+    conforms: true
+    evidence: security/chatgpt-trust-center.yml (ISO 27001/27017/27018)
+  - id: fedramp
+    conforms: true
+    evidence: >-
+      security/chatgpt-trust-center.yml (FedRAMP); OpenAI available at FedRAMP
+      Moderate (see blogs/2026-04-27-openai-available-at-fedramp-moderate.md).
+  - id: pci-dss
+    conforms: true
+    evidence: security/chatgpt-trust-center.yml (PCI DSS)
+  - id: gdpr
+    conforms: true
+    evidence: security/chatgpt-trust-center.yml (GDPR)
+  - id: csa-star
+    conforms: true
+    evidence: security/chatgpt-trust-center.yml (CSA STAR)
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: well-known/chatgpt-security.txt (PGP-signed RFC 9116 security.txt)
