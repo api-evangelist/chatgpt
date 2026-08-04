@@ -1,0 +1,16 @@
+{
+  "provider": "chatgpt",
+  "sources": [
+    "chatgpt-chat-completions-api-openapi.yml",
+    "chatgpt-responses-api-openapi.yml"
+  ],
+  "outputs": [
+    "chatgpt-chat-completions-api-openapi.yml",
+    "chatgpt-responses-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
