@@ -17,7 +17,7 @@ image: https://openai.com/content/images/2023/05/openai-avatar.png
 url: https://platform.openai.com/docs/api-reference
 created: '2024'
 modified: '2026-06-20'
-specificationVersion: '0.18'
+specificationVersion: '0.23'
 kind: contract
 access: 3rd-Party
 apis:
