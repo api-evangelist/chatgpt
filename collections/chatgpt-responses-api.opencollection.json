@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "ChatGPT Responses API",
+    "name": "ChatGPT Chat Completions Responses API",
     "version": "1.0.0"
   },
   "request": {

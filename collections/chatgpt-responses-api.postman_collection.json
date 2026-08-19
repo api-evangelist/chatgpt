@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "b363c0e1-1f14-413f-9cc0-432648757bbb",
+      "id": "431f1e91-2f09-452b-b823-50977ee7a193",
       "name": "Responses",
       "description": {
         "content": "Create, retrieve, and manage model responses",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "b92b5731-3ce6-49e0-9c5c-4cd4a8ff51b5",
+          "id": "426982b8-472d-4cb6-a5d2-e04e6812b028",
           "name": "Chatgpt Create Response",
           "request": {
             "name": "Chatgpt Create Response",
@@ -41,7 +41,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"previous_response_id\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": \"<object>\",\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"<string>\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"<string>\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": \"<object>\",\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"<string>\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"<string>\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"key_0\": \"<string>\"\n      }\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"truncation\": \"disabled\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": \"<object>\",\n      \"strict\": \"<boolean>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"medium\",\n    \"summary\": \"<string>\"\n  },\n  \"store\": true,\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\",\n    \"key_4\": \"<string>\",\n    \"key_5\": \"<string>\",\n    \"key_6\": \"<string>\",\n    \"key_7\": \"<string>\",\n    \"key_8\": \"<string>\",\n    \"key_9\": \"<string>\",\n    \"key_10\": \"<string>\"\n  },\n  \"stream\": false,\n  \"parallel_tool_calls\": true,\n  \"user\": \"<string>\"\n}",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"previous_response_id\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": \"<object>\",\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"<string>\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"<string>\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": \"<object>\",\n      \"strict\": false,\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": 20,\n      \"ranking_options\": {\n        \"ranker\": \"<string>\",\n        \"score_threshold\": \"<number>\"\n      },\n      \"container\": {\n        \"type\": \"<string>\",\n        \"file_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"display_width\": \"<integer>\",\n      \"display_height\": \"<integer>\",\n      \"environment\": \"<string>\",\n      \"server_label\": \"<string>\",\n      \"server_url\": \"<uri>\",\n      \"allowed_tools\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"headers\": {\n        \"key_0\": \"<string>\"\n      }\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"truncation\": \"disabled\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"schema\": \"<object>\",\n      \"strict\": \"<boolean>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"medium\",\n    \"summary\": \"<string>\"\n  },\n  \"store\": true,\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\",\n    \"key_4\": \"<string>\",\n    \"key_5\": \"<string>\",\n    \"key_6\": \"<string>\",\n    \"key_7\": \"<string>\",\n    \"key_8\": \"<string>\",\n    \"key_9\": \"<string>\",\n    \"key_10\": \"<string>\",\n    \"key_11\": \"<string>\"\n  },\n  \"stream\": false,\n  \"parallel_tool_calls\": true,\n  \"user\": \"<string>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -51,7 +51,7 @@
           },
           "response": [
             {
-              "id": "7097f13a-33a2-4d9d-9186-f5b780d0d0ea",
+              "id": "174d1ba3-d9a7-4798-9ae8-429a4bf4cee2",
               "name": "Successful response",
               "originalRequest": {
                 "url": {
@@ -102,7 +102,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "b8dd0bfc-c3f7-4bd2-ba59-f91158cd747c",
+              "id": "7314c86e-e75c-474d-9f5d-4fe78d7e6678",
               "name": "Bad Request - Invalid parameters",
               "originalRequest": {
                 "url": {
@@ -153,7 +153,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "14470c92-8ebb-44a9-a127-ce74c3b93163",
+              "id": "a01372e4-9b50-4812-82fe-2e2b12e1178a",
               "name": "Unauthorized - Invalid or missing API key",
               "originalRequest": {
                 "url": {
@@ -204,7 +204,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "f5eacfc8-cd70-4c10-955a-49a749e9e0d7",
+              "id": "7b9e46cd-cdff-45a6-bd26-6bf683783024",
               "name": "Too Many Requests - Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -255,7 +255,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "47286826-ef9f-4550-839a-907ac536bb72",
+              "id": "d3930f74-f907-497f-af71-624d4d527355",
               "name": "Internal Server Error",
               "originalRequest": {
                 "url": {
@@ -312,7 +312,7 @@
           }
         },
         {
-          "id": "b2dd07ff-c6c4-4638-92e2-8e59eeedb1c9",
+          "id": "99d2ff57-4e13-4fbd-9102-359a9703c919",
           "name": "Chatgpt Retrieve Response",
           "request": {
             "name": "Chatgpt Retrieve Response",
@@ -363,7 +363,7 @@
           },
           "response": [
             {
-              "id": "b47fc65f-ac13-4624-8572-963116959b69",
+              "id": "d05ad678-bf88-4bd5-99fd-4332d389384d",
               "name": "Successful retrieval",
               "originalRequest": {
                 "url": {
@@ -415,7 +415,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "5a9c2cf9-dcbf-4633-ba30-f563d5e25b3d",
+              "id": "15130eb8-16ce-4d68-817b-ec3d3d472baa",
               "name": "Not Found - Response does not exist",
               "originalRequest": {
                 "url": {
@@ -473,7 +473,7 @@
           }
         },
         {
-          "id": "217670e6-70f9-410d-a0b1-e8b685caf59b",
+          "id": "9fb838df-2afc-4671-979a-6fc16566f788",
           "name": "Chatgpt Delete Response",
           "request": {
             "name": "Chatgpt Delete Response",
@@ -511,7 +511,7 @@
           },
           "response": [
             {
-              "id": "102d6bb8-0e14-4532-a1ab-4c418e1f2ec1",
+              "id": "b026cd05-c53e-46b7-8868-9568e4d40561",
               "name": "Response deleted successfully",
               "originalRequest": {
                 "url": {
@@ -563,7 +563,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "377f5b89-a5b8-4827-bc9e-937b7908e46b",
+              "id": "7c6e2eaf-dc84-43b9-be7e-ef90b63f0bf1",
               "name": "Not Found - Response does not exist",
               "originalRequest": {
                 "url": {
@@ -621,7 +621,7 @@
           }
         },
         {
-          "id": "f28c2fab-a0ed-4931-9dea-b7705b02d57b",
+          "id": "cdf12b7b-16ca-4bc2-ac66-629ac1fffaa5",
           "name": "Chatgpt List Input Items",
           "request": {
             "name": "Chatgpt List Input Items",
@@ -685,7 +685,7 @@
           },
           "response": [
             {
-              "id": "ae840671-a4ae-471f-a213-a3490eeeef9b",
+              "id": "7362d9ad-66cf-4887-8fc3-dd46b1182e69",
               "name": "Successful retrieval of input items",
               "originalRequest": {
                 "url": {
@@ -755,7 +755,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "667bea3c-ffe2-4841-9faa-b226215bd92e",
+              "id": "9e8a4757-f8ed-47c6-bba2-c3f9f7e33570",
               "name": "Not Found - Response does not exist",
               "originalRequest": {
                 "url": {
@@ -852,11 +852,11 @@
     ]
   },
   "info": {
-    "_postman_id": "d27254d8-aba7-48bb-b15b-fcbf385f7870",
-    "name": "ChatGPT Responses API",
+    "_postman_id": "b6e9b9be-c99a-4e14-b23e-eef7fce992f0",
+    "name": "ChatGPT Chat Completions Responses API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "OpenAI's Responses API is the recommended API primitive for building with\nOpenAI models. It is an evolution of the Chat Completions API with built-in\ntools such as web search, file search, computer use, and code interpreter.\nThe Responses API supports multi-turn conversations, streaming, and\nagentic workflows with a simplified interface.\n\n\nContact Support:\n Name: OpenAI Support",
+      "content": "OpenAI's Chat Completions API for generating conversational responses\nusing GPT models. Given a list of messages comprising a conversation,\nthe model returns a response. Supports text generation, function calling,\nstructured outputs, vision inputs, and streaming.\n\n\nContact Support:\n Name: OpenAI Support",
       "type": "text/plain"
     }
   }
