@@ -29,6 +29,12 @@ apis:
   baseURL: https://api.openai.com/v1
   tags:
   - Artificial Intelligence
+  - Chatbots
+  - Conversational AI
+  - Machine-Learning
+  - Natural Language Processing
+  tags_raw:
+  - Artificial Intelligence
   - Chatbot
   - Conversational AI
   - Machine Learning
@@ -275,6 +281,17 @@ common:
       - name: Slack
         description: Integrate ChatGPT into Slack workspaces for team collaboration and AI-assisted communication.
 tags:
+  - Agents
+  - Artificial Intelligence
+  - ChatGPT
+  - Embeddings
+  - Fine-Tuning
+  - GPT-4
+  - GPT-5
+  - Language Model
+  - OpenAI
+  - Real-Time
+tags_raw:
   - Agents
   - AI
   - ChatGPT
