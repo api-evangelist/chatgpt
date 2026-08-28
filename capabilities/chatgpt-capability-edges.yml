@@ -1,0 +1,35 @@
+slug: chatgpt
+provider: ChatGPT
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Chat Completions
+  spec_file: chatgpt-chat-completions-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: OpenAI's Chat Completions API for generating conversational responses using GPT models
+  reason: The operation invokes a large language model for text generation; the closest candidate is Artificial
+    Intelligence Management. This is model inference rather than model lifecycle governance, so confidence
+    is moderate.
+- tag: Responses
+  spec_file: chatgpt-responses-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /responses createResponse ... generating conversational responses using GPT models
+  reason: Same LLM inference surface with response lifecycle CRUD; maps to AI/ML capability as the nearest
+    honest fit, with moderate confidence since it is model consumption not governance.

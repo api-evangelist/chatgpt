@@ -1,5 +1,17 @@
 name: ChatGPT
 description: OpenAI's ChatGPT API for conversational AI and language model interactions.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -120,6 +132,9 @@ maintainers:
     email: support@openai.com
     url: https://openai.com
 common:
+  - type: CapabilityMap
+    url: capabilities/chatgpt-capability-edges.yml
+    name: ChatGPT Business Capability Map
   - type: Packages
     url: packages/chatgpt-packages.yml
   - type: WellKnown
