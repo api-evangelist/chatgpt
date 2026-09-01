@@ -41,7 +41,7 @@ apis:
   baseURL: https://api.openai.com/v1
   tags:
   - Artificial Intelligence
-  - Chatbot
+  - Chatbots
   - Conversational AI
   - Machine-Learning
   - Natural Language Processing
