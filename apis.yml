@@ -133,6 +133,8 @@ maintainers:
     email: support@openai.com
     url: https://openai.com
 common:
+  - type: Website
+    url: https://openai.com/
   - type: CapabilityMap
     url: capabilities/chatgpt-capability-edges.yml
     name: ChatGPT Business Capability Map
