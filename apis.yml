@@ -56,9 +56,11 @@ apis:
   - type: Documentation
     url: https://platform.openai.com/docs/api-reference/chat
   - type: OpenAPI
-    url: https://github.com/openai/openai-openapi/blob/master/openapi.yaml
-  - type: OpenAPI
     url: openapi/chatgpt-chat-completions-api-openapi.yml
+  - type: OpenAPI
+    url: openapi/chatgpt-responses-api-openapi.yml
+  - type: OpenAPI
+    url: https://github.com/openai/openai-openapi/blob/master/openapi.yaml
   - type: JSONSchema
     url: json-schema/chatgpt-chat-completion-schema.json
   - type: JSONLD
@@ -116,8 +118,6 @@ apis:
     url: https://platform.openai.com/docs/api-reference/responses
   - type: OpenAPI
     url: https://github.com/openai/openai-openapi/blob/master/openapi.yaml
-  - type: OpenAPI
-    url: openapi/chatgpt-responses-api-openapi.yml
   - type: JSONSchema
     url: json-schema/chatgpt-response-schema.json
   - type: JSONLD
